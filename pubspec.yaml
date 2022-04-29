@@ -1,5 +1,5 @@
 name: arborrr_p001
-description: A new Flutter project.
+description: A new Arborrr project.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -20,12 +20,6 @@ version: 1.0.0+1
 environment:
   sdk: ">=2.16.2 <3.0.0"
 
-# Dependencies specify other packages that your package needs in order to work.
-# To automatically upgrade your package dependencies to the latest versions
-# consider running `flutter pub upgrade --major-versions`. Alternatively,
-# dependencies can be manually updated by changing the version numbers below to
-# the latest version available on pub.dev. To see which dependencies have newer
-# versions available, run `flutter pub outdated`.
 dependencies:
   flutter:
     sdk: flutter
@@ -33,7 +27,12 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.2
+  cupertino_icons: ^1.0.3
+  firebase_core: ^1.15.0
+  firebase_auth: ^3.3.16
+  provider: ^6.0.2
+  cloud_firestore: ^3.1.13
+  shared_preferences: ^2.0.13
 
 dev_dependencies:
   flutter_test:
@@ -76,9 +75,12 @@ flutter:
   fonts:
     - family: SukhumvitSet
       fonts:
-        - asset: assets/fonts/SukhumvitSet-Text.ttf
+        - asset: assets/fonts/SukhumvitSet-SemiBold.ttf
         # - asset: assets/fonts/SukhumvitSet-SemiBold.ttf
         #   weight: 400
+    - family: SF CompectDisplay
+      fonts:
+        - asset: assets\fonts\SFCompactDisplay-Semibold.otf
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf
