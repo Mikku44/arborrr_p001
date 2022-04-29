@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:arborrr_p001/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:arborrr_p001/login.dart';
+import 'package:arborrr_p001/profile.dart';
+import 'package:arborrr_p001/Message.dart';
+import 'package:arborrr_p001/Payment.dart';
+import 'package:arborrr_p001/mec.dart';
 
+const primaryColor = Color(0xFF4059AD);
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -44,19 +49,19 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
+    return const DefaultTabController(
       length: 4,
       child: Scaffold(
         body: TabBarView(
           children: [
-            Container(),
-            Container(),
-            Container(),
-            Container(),
+            Mec(),
+            Message(),
+            Payment(),
+            Profile(),
           ],
         ),
-        backgroundColor: Colors.blue,
-        bottomNavigationBar: const TabBar(
+        backgroundColor: Color(0xFF121D22),
+        bottomNavigationBar: TabBar(
           tabs: [
             Tab(
               text: 'Mec',

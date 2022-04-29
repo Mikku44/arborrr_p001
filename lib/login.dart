@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
-const primaryColor = Color(0xFF4059AD);
+import 'package:arborrr_p001/main.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -43,7 +43,14 @@ class _LoginState extends State<Login> {
                 width: double.infinity,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(primary: primaryColor),
-                  onPressed: () {},
+                  onPressed: () async {
+                    final prefs = await SharedPreferences.getInstance();
+                    prefs.setBool('showHome', true);
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                          builder: (context) => const MyHomePage()),
+                    );
+                  },
                   child: const Text(
                     'ส่งรหัสผ่าน',
                     style: TextStyle(
