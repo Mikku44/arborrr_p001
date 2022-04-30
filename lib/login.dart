@@ -17,27 +17,46 @@ class _LoginState extends State<Login> {
         backgroundColor: primaryColor,
         title: Row(
           children: const [
-            Text('Mecanorrr'),
+            Text('Login'),
           ],
         ),
         elevation: 0,
       ),
       body: Container(
         padding: const EdgeInsets.all(20),
+        margin: const EdgeInsets.symmetric(horizontal: 2, vertical: 100),
         child: Form(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Positioned(
-                child: Container(
-                  margin: const EdgeInsets.symmetric(vertical: 230),
-                  height: 54,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text("เบอร์โทรศัพท์",
+                          style: TextStyle(color: Colors.white)),
+                      const SizedBox(height: 10), //!MUST CHAGE
+                      Container(
+                        // margin: const EdgeInsets.symmetric(vertical: 250),
+                        height: 54,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 20),
+                          child: const TextField(
+                            obscureText: true,
+                            decoration: InputDecoration(
+                              hintText: "e.g. 0620503184",
+                              enabledBorder: InputBorder.none,
+                              focusedBorder: InputBorder.none,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ]),
               ),
+              const SizedBox(height: 200), //!MUST CHANGE
               SizedBox(
                 height: 54,
                 width: double.infinity,
