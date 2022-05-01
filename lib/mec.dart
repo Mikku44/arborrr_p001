@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:arborrr_p001/main.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:arborrr_p001/var.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
 
 class Mec extends StatefulWidget {
   const Mec({Key? key}) : super(key: key);
@@ -16,7 +16,7 @@ class _MecState extends State<Mec> {
       appBar: AppBar(
         backgroundColor: primaryColor,
         title: const Text(
-          "Mec",
+          "Call",
         ),
         elevation: 0,
       ),

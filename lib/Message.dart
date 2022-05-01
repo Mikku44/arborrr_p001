@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:arborrr_p001/main.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:arborrr_p001/var.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
 
 class Message extends StatefulWidget {
   const Message({Key? key}) : super(key: key);

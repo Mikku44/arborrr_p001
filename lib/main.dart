@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:arborrr_p001/login.dart';
@@ -8,14 +7,13 @@ import 'package:arborrr_p001/profile.dart';
 import 'package:arborrr_p001/Message.dart';
 import 'package:arborrr_p001/Payment.dart';
 import 'package:arborrr_p001/mec.dart';
+import 'package:arborrr_p001/var.dart';
 
-const primaryColor = Color(0xFF4059AD);
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
   final prefs = await SharedPreferences.getInstance();
   final showHome = prefs.getBool('showHome') ?? false;
 
@@ -37,9 +35,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         scaffoldBackgroundColor: primaryColor,
         fontFamily: 'SukhumvitSet',
-        primarySwatch: Colors.blue,
+        // primarySwatch: Colors.blue,
       ),
-      home: showHome ? const MyHomePage() : const Login(),
+      home: showHome ? const Login() : const MyHomePage(),
     );
   }
 }

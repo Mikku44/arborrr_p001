@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:arborrr_p001/main.dart';
+import 'package:arborrr_p001/var.dart';
 import 'package:arborrr_p001/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
