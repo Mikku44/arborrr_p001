@@ -7,9 +7,9 @@ import 'package:arborrr_p001/profile.dart';
 import 'package:arborrr_p001/Message.dart';
 import 'package:arborrr_p001/Payment.dart';
 import 'package:arborrr_p001/mec.dart';
-import 'package:arborrr_p001/var.dart';
 
-Future main() async {
+const primaryColor = Color(0xFF4059AD);
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,

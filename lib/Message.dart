@@ -1,5 +1,7 @@
+// ignore: file_names
 import 'package:flutter/material.dart';
-import 'package:arborrr_p001/var.dart';
+
+const primaryColor = Color(0xFF4059AD);
 // import 'package:shared_preferences/shared_preferences.dart';
 
 class Message extends StatefulWidget {
@@ -14,13 +16,28 @@ class _MessageState extends State<Message> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: primaryColor,
-        title: const Text(
-          "Message",
-        ),
-        elevation: 0,
+          elevation: 0,
+          backgroundColor: primaryColor,
+          title: const Text("Message")),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          const Expanded(
+            child: Material(
+              color: primaryColor,
+            ),
+          ),
+          Container(
+            color: Colors.white,
+            padding: const EdgeInsets.all(10.0),
+            child: const TextField(
+              decoration: InputDecoration(
+                hintText: 'Chat message',
+              ),
+            ),
+          ),
+        ],
       ),
-      body: Container(),
     );
   }
 }

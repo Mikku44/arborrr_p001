@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:arborrr_p001/var.dart';
+
 // import 'package:shared_preferences/shared_preferences.dart';
+const primaryColor = Color(0xFF4059AD);
 
 class Payment extends StatefulWidget {
   const Payment({Key? key}) : super(key: key);

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:arborrr_p001/var.dart';
+import 'package:arborrr_p001/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:developer';
 // import 'package:shared_preferences/shared_preferences.dart';
 
@@ -13,11 +13,11 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  FirebaseAuth auth = FirebaseAuth.instance;
   String verificationIDR = "";
   bool otpCodehide = false;
   TextEditingController phoneController = TextEditingController();
   TextEditingController otpCode = TextEditingController();
-  FirebaseAuth auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -31,74 +31,70 @@ class _LoginState extends State<Login> {
         ),
         elevation: 0,
       ),
-      body: Container(
-        padding: const EdgeInsets.all(20),
-        margin: const EdgeInsets.symmetric(horizontal: 2, vertical: 100),
-        child: Form(
-          child: Column(
-            children: [
-              Positioned(
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text("เบอร์โทรศัพท์",
+      body: Wrap(
+          runSpacing: 30,
+          alignment: WrapAlignment.center,
+          children: <Widget>[
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 25),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Container(
+                      child: const Text("เบอร์โทรศัพท์",
                           style: TextStyle(color: Colors.white)),
-                      const SizedBox(height: 10), //!MUST CHAGE
-                      Container(
-                        // margin: const EdgeInsets.symmetric(vertical: 250),
-                        height: 54,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 20),
-                          child: TextField(
-                            controller: phoneController,
-                            keyboardType: TextInputType.phone,
-                            obscureText: false,
-                            maxLength: 9,
-                            decoration: const InputDecoration(
-                              counterText: "",
-                              prefixText: "+66 | ",
-                              hintText: "กรุณากรอกหมายเลขโทรศัพท์",
-                              hintStyle: TextStyle(fontSize: 18),
-                              enabledBorder: InputBorder.none,
-                              focusedBorder: InputBorder.none,
-                            ),
-                          ),
+                    ),
+                    Container(
+                      height: 54,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: TextField(
+                        controller: phoneController,
+                        keyboardType: TextInputType.phone,
+                        maxLength: 9,
+                        decoration: const InputDecoration(
+                          counterText: "",
+                          prefixText: "  +66 | ",
+                          hintText: " หมายเลขโทรศัพท์",
+                          hintStyle: TextStyle(fontSize: 18),
+                          enabledBorder: InputBorder.none,
+                          focusedBorder: InputBorder.none,
                         ),
                       ),
-                    ]),
-              ),
-              const SizedBox(height: 20), //!MUST CHANGE
-              // Login button
-              SizedBox(
-                height: 54,
-                width: double.infinity,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(primary: primaryColor),
-                  onPressed: () async {
-                    verifyNumber();
-                    // final prefs = await SharedPreferences.getInstance();
-                    // prefs.setBool('showHome', true);
-                    // Navigator.of(context).pushReplacement(
-                    //   MaterialPageRoute(
-                    //       builder: (context) => const MyHomePage()),
-                    // );
-                  },
-                  child: const Text(
-                    'ส่งรหัสผ่าน',
-                    style: TextStyle(
-                      fontSize: 24,
                     ),
+                  ]),
+            ),
+            Container(
+                margin: const EdgeInsets.symmetric(horizontal: 25),
+                child: const Text(
+                    'โดยการดำเนินการต่อ หมายความว่าคุณยินยอมให้จัดเก็บข้อมูลส่วนบุคคลตามเงื่อนไข Privacy Policy และคุณจะได้รับข้อความ SMS สำหรับการยืนยันตัวตน',
+                    style: TextStyle(color: Colors.white))),
+            // Login button
+            SizedBox(
+              height: 54,
+              width: 350,
+              child: ElevatedButton(
+                autofocus: true,
+                style: ElevatedButton.styleFrom(primary: Color(0xFF353535)),
+                onPressed: () async {
+                  // verifyNumber();
+                  final prefs = await SharedPreferences.getInstance();
+                  prefs.setBool('showHome', true);
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => const MyHomePage()),
+                  );
+                },
+                child: const Text(
+                  'ดำเนินการต่อ',
+                  style: TextStyle(
+                    fontSize: 18,
                   ),
                 ),
               ),
-            ],
-          ),
-        ),
-      ),
+            ),
+          ]),
     );
   }
 
@@ -114,10 +110,11 @@ class _LoginState extends State<Login> {
         codeSent: (String verificationID, int? resendToken) {
           verificationIDR = verificationID;
           otpCodehide = true;
+          // setState(() {});
         },
         codeAutoRetrievalTimeout: (String verificationID) {},
         verificationFailed: (FirebaseAuthException error) {
-          // print("FAILD TO LOGIN");
+          log("FAILD TO Verificate");
         });
   }
 
@@ -126,7 +123,7 @@ class _LoginState extends State<Login> {
         verificationId: verificationIDR, smsCode: otpCode.text);
 
     await auth.signInWithCredential(credential).then((value) {
-      // print("Success login!!");
+      log("Success login!!");
     });
   }
 }
