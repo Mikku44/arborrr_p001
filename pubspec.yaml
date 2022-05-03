@@ -21,7 +21,7 @@ environment:
   sdk: ">=2.16.2 <3.0.0"
 
 flutter_native_splash:
-  color: '#FFFFFF'
+  color: '#FFFFFFFF'
   image: assets\images\logo.png
 
 dependencies:
@@ -39,6 +39,7 @@ dependencies:
   shared_preferences: ^2.0.13
   fluttertoast: ^8.0.9
   flutter_native_splash: ^2.1.6
+  otp_text_field: ^1.1.3
 
 dev_dependencies:
   flutter_test:
@@ -85,8 +86,8 @@ flutter:
     - family: SukhumvitSet
       fonts:
         - asset: assets/fonts/SukhumvitSet-SemiBold.ttf
-        # - asset: assets/fonts/SukhumvitSet-SemiBold.ttf
-        #   weight: 400
+        - asset: assets/fonts/SukhumvitSet-Bold.ttf
+          weight: 700
     - family: SF CompectDisplay
       fonts:
         - asset: assets\fonts\SFCompactDisplay-Semibold.otf
