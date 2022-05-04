@@ -88,9 +88,10 @@ flutter:
         - asset: assets/fonts/SukhumvitSet-SemiBold.ttf
         - asset: assets/fonts/SukhumvitSet-Bold.ttf
           weight: 700
-    - family: SF CompectDisplay
+    - family: awesomefont
       fonts:
-        - asset: assets\fonts\SFCompactDisplay-Semibold.otf
+        - asset: assets/fonts/fa-solid-900.ttf
+    
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf

@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:otp_text_field/otp_field.dart';
-import 'package:otp_text_field/otp_text_field.dart';
-import 'package:otp_text_field/style.dart';
-import 'dart:developer';
 
 // import 'package:shared_preferences/shared_preferences.dart';
 const primaryColor = Color(0xFF4059AD);
@@ -15,8 +11,6 @@ class Payment extends StatefulWidget {
 }
 
 class _PaymentState extends State<Payment> {
-  get otpController => null;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,22 +21,15 @@ class _PaymentState extends State<Payment> {
         ),
         elevation: 0,
       ),
-      body: Center(
-        child: OTPTextField(
-            controller: otpController,
-            length: 5,
-            width: MediaQuery.of(context).size.width,
-            textFieldAlignment: MainAxisAlignment.spaceAround,
-            fieldWidth: 45,
-            fieldStyle: FieldStyle.box,
-            outlineBorderRadius: 15,
-            style: const TextStyle(fontSize: 17),
-            onChanged: (pin) {
-              log("Changed: " + pin);
-            },
-            onCompleted: (pin) {
-              log("Completed: " + pin);
-            }),
+      body: Container(
+        child: Text(
+          'This is a Container',
+        ),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: Colors.white,
+        ),
+        height: 200,
       ),
     );
   }
