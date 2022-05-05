@@ -1,5 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import 'package:arborrr_p001/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -48,6 +48,7 @@ class _ProfileState extends State<Profile> {
                 onPressed: () async {
                   final prefs = await SharedPreferences.getInstance();
                   prefs.setBool('showHome', true);
+                  FirebaseAuth.instance.signOut();
                   Navigator.of(context).pushReplacement(
                     MaterialPageRoute(builder: (context) => const Login()),
                   );

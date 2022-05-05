@@ -24,9 +24,10 @@ class _MecState extends State<Mec> {
       body: Center(
         child: ListView(
           children: [
+            Image.asset('assets/images/image.png'),
             Padding(
                 padding: const EdgeInsets.only(
-                    bottom: 20, top: 20, right: 250, left: 20),
+                    bottom: 20, top: 20, right: 260, left: 20),
                 child: Container(
                   decoration: BoxDecoration(
                     color: Colors.black38,
@@ -50,10 +51,13 @@ class _MecState extends State<Mec> {
                         style: TextStyle(color: Colors.white, fontSize: 14))
                   ],
                 )),
-            card('01', context),
-            card('02', context),
-            card('03', context),
-            card('04', context),
+            card('น้ำมันหมด', '01', context),
+            card('ยางแตก', '02', context),
+            card('หม้อน้ำแห้ง', '03', context),
+            card('สตาร์ทไม่ติด', '04', context),
+            card('โซ่ขาด', '05', context),
+            card('ยางแบน', '06', context),
+            card('บริการยกรถ', '07', context),
           ],
         ),
       ),
@@ -61,27 +65,43 @@ class _MecState extends State<Mec> {
   }
 }
 
-card(String name, context) {
+card(String service, String name, context) {
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
     child: Container(
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 53),
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text(
-                name,
-                style: const TextStyle(color: Colors.white, fontSize: 96),
-              ),
-            ]),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const Padding(
+            padding: EdgeInsets.only(top: 20),
+            child: Icon(
+              Icons.radio_button_unchecked,
+              color: Colors.white,
+              size: 28,
+            ),
+          ),
+          Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(
+                  service,
+                  style: const TextStyle(color: Colors.white, fontSize: 32),
+                ),
+                Text(
+                  name,
+                  style: const TextStyle(color: Colors.white, fontSize: 96),
+                ),
+              ])
+        ],
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: const Color(0x88000000),
       ),
-      height: 200,
+      height: 210,
     ),
   );
 }

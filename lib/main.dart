@@ -7,7 +7,7 @@ import 'firebase_options.dart';
 // import 'package:arborrr_p001/Message.dart';
 import 'package:arborrr_p001/Payment.dart';
 import 'package:arborrr_p001/mec.dart';
-// import 'package:arborrr_p001/Tracking.dart';
+import 'package:arborrr_p001/map.dart';
 
 const primaryColor = Color(0xFF4059AD);
 Future<void> main() async {
@@ -53,12 +53,15 @@ class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
   static const List<Widget> _widgetOptions = <Widget>[
     Mec(),
+    MapPage(),
     Text(
-      'Index 1: Message',
+      'Index 3: Message',
     ),
-    Payment(),
     Text(
       'Index 4: Profile',
+    ),
+    Text(
+      'Index 5: Profile',
     ),
   ];
   void _onItemTapped(int index) {
@@ -77,15 +80,23 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: const Color(0xFF121D22),
         fixedColor: const Color(0xFF97D8C4),
         type: BottomNavigationBarType.fixed,
-        iconSize: 28,
         showUnselectedLabels: false,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.hail), label: "Home"),
-          BottomNavigationBarItem(icon: Icon(Icons.send), label: "Message"),
+        showSelectedLabels: false,
+        items: const [
           BottomNavigationBarItem(
-              icon: Icon(Icons.receipt_long), label: "Payment"),
+              icon: Icon(IconData(0xf1cd, fontFamily: 'awesomefont'), size: 28),
+              label: "Home"),
           BottomNavigationBarItem(
-              icon: Icon(Icons.person_rounded), label: "Profile"),
+              icon: Icon(IconData(0xf14e, fontFamily: 'awesomefont'), size: 28),
+              label: "explore"),
+          BottomNavigationBarItem(
+              icon: Icon(IconData(0xf1d8, fontFamily: 'awesomefont'), size: 28),
+              label: "Message"),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.receipt_long, size: 32), label: "Payment"),
+          BottomNavigationBarItem(
+              icon: Icon(IconData(0xf4fb, fontFamily: 'awesomefont'), size: 28),
+              label: "Profile"),
         ],
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
