@@ -8,11 +8,12 @@ import 'firebase_options.dart';
 import 'package:arborrr_p001/Payment.dart';
 import 'package:arborrr_p001/mec.dart';
 import 'package:arborrr_p001/map.dart';
+import "package:latlong2/latlong.dart";
 
 const primaryColor = Color(0xFF4059AD);
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
