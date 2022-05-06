@@ -12,6 +12,7 @@ import 'package:arborrr_p001/map.dart';
 const primaryColor = Color(0xFF4059AD);
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -53,13 +54,11 @@ class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
   static const List<Widget> _widgetOptions = <Widget>[
     Mec(),
-    MapPage(),
     Text(
       'Index 3: Message',
     ),
-    Text(
-      'Index 4: Profile',
-    ),
+    MapPage(),
+    Payment(),
     Text(
       'Index 5: Profile',
     ),
@@ -80,20 +79,22 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: const Color(0xFF121D22),
         fixedColor: const Color(0xFF97D8C4),
         type: BottomNavigationBarType.fixed,
-        showUnselectedLabels: false,
-        showSelectedLabels: false,
+        // showUnselectedLabels: false,
+        // showSelectedLabels: false,
         items: const [
           BottomNavigationBarItem(
               icon: Icon(IconData(0xf1cd, fontFamily: 'awesomefont'), size: 28),
               label: "Home"),
           BottomNavigationBarItem(
-              icon: Icon(IconData(0xf14e, fontFamily: 'awesomefont'), size: 28),
-              label: "explore"),
-          BottomNavigationBarItem(
-              icon: Icon(IconData(0xf1d8, fontFamily: 'awesomefont'), size: 28),
+              icon: Icon(IconData(0xf1d8, fontFamily: 'awesomefont'), size: 26),
               label: "Message"),
           BottomNavigationBarItem(
-              icon: Icon(Icons.receipt_long, size: 32), label: "Payment"),
+              icon: Icon(IconData(0xf14e, fontFamily: 'awesomefont'), size: 30),
+              label: "Explore"),
+          BottomNavigationBarItem(
+              icon:
+                  Icon(IconData(0xe50d, fontFamily: 'MaterialIcons'), size: 28),
+              label: "Payment"),
           BottomNavigationBarItem(
               icon: Icon(IconData(0xf4fb, fontFamily: 'awesomefont'), size: 28),
               label: "Profile"),

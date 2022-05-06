@@ -1,64 +1,96 @@
+import 'package:arborrr_p001/main.dart';
 import "package:flutter/material.dart";
 import "package:flutter_map/flutter_map.dart";
 import "package:latlong2/latlong.dart";
+import 'package:geolocator/geolocator.dart';
 import 'package:arborrr_p001/copyrights_page.dart';
 import "package:http/http.dart" as http;
 import "dart:convert" as convert;
+import 'dart:developer';
 
-class MapPage extends StatelessWidget {
+class MapPage extends StatefulWidget {
   const MapPage({Key? key}) : super(key: key);
+
+  @override
+  State<MapPage> createState() => _MapPageState();
+}
+
+var tomtomHQ = LatLng(7.95357, 7.95357);
+
+class _MapPageState extends State<MapPage> {
   final String apiKey = "SovU5lE0pXkNfdGu3GajCF2wT38B8lVj";
 
   @override
   Widget build(BuildContext context) {
-    final tomtomHQ = new LatLng(52.376372, 4.908066);
     return MaterialApp(
       title: "TomTom Map",
       home: Scaffold(
-        body: Center(
-            child: Stack(
-          children: <Widget>[
-            FlutterMap(
-              options: new MapOptions(center: tomtomHQ, zoom: 13.0),
-              layers: [
-                new TileLayerOptions(
-                  urlTemplate: "https://api.tomtom.com/map/1/tile/basic/main/"
-                      "{z}/{x}/{y}.png?key={apiKey}",
-                  additionalOptions: {"apiKey": apiKey},
-                ),
-                new MarkerLayerOptions(
-                  markers: [
-                    new Marker(
-                      width: 80.0,
-                      height: 80.0,
-                      point: new LatLng(52.376372, 4.908066),
-                      builder: (BuildContext context) => const Icon(
-                          Icons.location_on,
-                          size: 60.0,
-                          color: Colors.black),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            Container(
-                padding: EdgeInsets.all(20),
-                alignment: Alignment.bottomLeft,
-                child: Image.asset("assets/images/tt_logo.png"))
-          ],
-        )),
-        floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.copyright),
-          onPressed: () async {
-            http.Response response = await getCopyrightsJSONResponse();
+        appBar: AppBar(
+          title: Text('Explore'),
+          backgroundColor: primaryColor,
+          elevation: 0,
+          actions: [
+            IconButton(
+                onPressed: () async {
+                  http.Response response = await getCopyrightsJSONResponse();
 
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => CopyrightsPage(
-                        copyrightsText: parseCopyrightsResponse(response))));
-          },
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => CopyrightsPage(
+                              copyrightsText:
+                                  parseCopyrightsResponse(response))));
+                },
+                icon: Icon(Icons.copyright))
+          ],
         ),
+        body: Center(
+          child: Stack(
+            children: <Widget>[
+              FlutterMap(
+                options: MapOptions(center: tomtomHQ, zoom: 18.0),
+                layers: [
+                  TileLayerOptions(
+                    fastReplace: true,
+                    urlTemplate: "https://api.tomtom.com/map/1/tile/basic/main/"
+                        "{z}/{x}/{y}.png?key={apiKey}",
+                    additionalOptions: {"apiKey": apiKey},
+                  ),
+                  MarkerLayerOptions(
+                    markers: [
+                      Marker(
+                        rotate: true,
+                        width: 80.0,
+                        height: 80.0,
+                        point: tomtomHQ,
+                        builder: (BuildContext context) => const Icon(
+                            IconData(0xf3c5, fontFamily: 'awesomefont'),
+                            size: 45.0,
+                            color: Colors.red),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              Container(
+                padding: const EdgeInsets.all(20),
+                alignment: Alignment.bottomLeft,
+                child: Image.asset("assets/images/tt_logo.png"),
+              ),
+            ],
+          ),
+        ),
+        floatingActionButton: FloatingActionButton(
+            backgroundColor: primaryColor,
+            elevation: 2,
+            child: const Icon(Icons.my_location),
+            onPressed: () async {
+              Position position = await _determinePosition();
+              tomtomHQ = LatLng(position.latitude, position.longitude);
+
+              log('${LatLng(position.latitude, position.longitude)}');
+              setState(() {});
+            }),
       ),
     );
   }
@@ -83,22 +115,51 @@ class MapPage extends StatelessWidget {
 
   void parseRegionsCopyrights(jsonResponse, StringBuffer sb) {
     List<dynamic> copyrightsRegions = jsonResponse["regions"];
-    copyrightsRegions.forEach((element) {
+    for (var element in copyrightsRegions) {
       sb.writeln(element["country"]["label"]);
       List<dynamic> cpy = element["copyrights"];
-      cpy.forEach((e) {
+      for (var e in cpy) {
         sb.writeln(e);
-      });
+      }
       sb.writeln("");
-    });
+    }
+  }
+
+  Future<Position> _determinePosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+
+    if (!serviceEnabled) {
+      return Future.error('Location services are disabled');
+    }
+
+    permission = await Geolocator.checkPermission();
+
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+
+      if (permission == LocationPermission.denied) {
+        return Future.error("Location permission denied");
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error('Location permissions are permanently denied');
+    }
+
+    Position position = await Geolocator.getCurrentPosition();
+
+    return position;
   }
 
   void parseGeneralCopyrights(jsonResponse, StringBuffer sb) {
     List<dynamic> generalCopyrights = jsonResponse["generalCopyrights"];
-    generalCopyrights.forEach((element) {
+    for (var element in generalCopyrights) {
       sb.writeln(element);
       sb.writeln("");
-    });
+    }
     sb.writeln("");
   }
 }

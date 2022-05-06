@@ -1,5 +1,4 @@
-// ignore: file_names
-import 'package:flutter/material.dart';
+import 'package:flutter/Material.dart';
 
 const primaryColor = Color(0xFF4059AD);
 // import 'package:shared_preferences/shared_preferences.dart';
