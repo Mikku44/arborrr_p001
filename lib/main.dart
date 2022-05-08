@@ -8,7 +8,6 @@ import 'package:arborrr_p001/Message.dart';
 import 'package:arborrr_p001/Payment.dart';
 import 'package:arborrr_p001/mec.dart';
 import 'package:arborrr_p001/mapgl.dart';
-import "package:latlong2/latlong.dart";
 
 const primaryColor = Color(0xFF4059AD);
 
@@ -21,7 +20,6 @@ Future<void> main() async {
   final prefs = await SharedPreferences.getInstance();
   //ให้ตัวแปร showhome ใช้ร่วมกันได้ในไฟล์อื่นๆ
   final showHome = prefs.getBool('showHome') ?? false;
-
   runApp(MyApp(showHome: showHome));
 }
 

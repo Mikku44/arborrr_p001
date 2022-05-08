@@ -44,7 +44,6 @@ class _LoginState extends State<Login> {
   FirebaseAuth auth = FirebaseAuth.instance;
   String verificationIDR = "";
   bool otpCodehide = false;
-  bool phide = true;
   String btn = 'ดำเนินการต่อ';
   String inputHeader = "เบอร์โทรศัพท์";
   TextEditingController phoneController = TextEditingController();
@@ -101,7 +100,7 @@ class _LoginState extends State<Login> {
                   ),
                 ),
                 Visibility(
-                  visible: phide,
+                  visible: !otpCodehide,
                   child: Container(
                     height: 54,
                     decoration: BoxDecoration(
@@ -195,7 +194,6 @@ class _LoginState extends State<Login> {
           verificationIDR = verificationID;
           btn = 'เข้าสู่ระบบ';
           inputHeader = "OTP Code";
-          phide = false;
           otpCodehide = true;
           setState(() {});
         },
