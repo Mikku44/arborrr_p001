@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
-// import 'package:arborrr_p001/login.dart';
 // import 'package:arborrr_p001/profile.dart';
 import 'package:arborrr_p001/Message.dart';
 import 'package:arborrr_p001/Payment.dart';
@@ -17,18 +15,18 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  final prefs = await SharedPreferences.getInstance();
-  //ให้ตัวแปร showhome ใช้ร่วมกันได้ในไฟล์อื่นๆ
-  final showHome = prefs.getBool('showHome') ?? false;
-  runApp(MyApp(showHome: showHome));
+
+  runApp(const MyApp());
 }
 
+//หน้าแรกเริ่มจากแผนที่
+int _selectedIndex = 0;
+
 class MyApp extends StatelessWidget {
-  final bool showHome;
   const MyApp({
     Key? key,
-    required this.showHome,
   }) : super(key: key);
+
 //ส่วนหน้าแรกของแอป
   @override
   Widget build(BuildContext context) {
@@ -38,6 +36,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: primaryColor,
         fontFamily: 'SukhumvitSet',
       ),
+      debugShowCheckedModeBanner: false,
       home: const MyHomePage(),
     );
   }
@@ -51,13 +50,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  void initState() {
-    int _selectedIndex = 0;
-    super.initState();
-  }
-
-  //หน้าแรกเริ่มจากแผนที่
-  int _selectedIndex = 2;
   //list ของหน้าโดยการเรียกใช้ฟังก์ชั่นในไฟล์อื่นๆ
   static const List<Widget> _widgetOptions = <Widget>[
     Mec(),

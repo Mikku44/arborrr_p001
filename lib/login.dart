@@ -1,5 +1,4 @@
 import 'package:arborrr_p001/main.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:otp_text_field/otp_field.dart';
@@ -208,11 +207,8 @@ class _LoginState extends State<Login> {
       verificationId: verificationIDR,
       smsCode: pin,
     );
-    final prefs = await SharedPreferences.getInstance();
     await auth.signInWithCredential(credential).then((value) {
       log("Success login!!");
-
-      prefs.setBool('showHome', true);
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => const MyHomePage()),
       );

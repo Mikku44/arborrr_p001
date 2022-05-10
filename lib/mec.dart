@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:arborrr_p001/main.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-// import 'package:shared_preferences/shared_preferences.dart';
 const primaryColor = Color(0xFF4059AD);
+String ready = 'ยังไม่พร้อมให้บริการ';
+var color = const Color(0xffdc143c);
 
 class Mec extends StatefulWidget {
   const Mec({Key? key}) : super(key: key);
@@ -14,31 +17,31 @@ class _MecState extends State<Mec> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: primaryColor,
-        title: const Text(
-          "Home",
-        ),
-        elevation: 0,
-      ),
       body: Center(
         child: ListView(
           children: [
             Image.asset('assets/images/image.png'),
             Padding(
-                padding: const EdgeInsets.only(
-                    bottom: 20, top: 20, right: 260, left: 20),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.black38,
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  child: Row(children: const [
-                    Icon(Icons.fiber_manual_record, color: Color(0xff97D8C4)),
-                    Text('พร้อมให้บริการ',
-                        style: TextStyle(color: Colors.white, fontSize: 12))
-                  ]),
-                )),
+              padding: const EdgeInsets.only(
+                  bottom: 20, top: 20, right: 210, left: 20),
+              child: TextButton(
+                  onPressed: () {},
+                  child: Container(
+                    height: 25,
+                    decoration: BoxDecoration(
+                      color: Colors.black38,
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.fiber_manual_record, color: color),
+                          Text(ready,
+                              style: const TextStyle(
+                                  color: Colors.white, fontSize: 12))
+                        ]),
+                  )),
+            ),
             Padding(
                 padding: const EdgeInsets.only(bottom: 50, right: 20, left: 20),
                 child: Column(
@@ -104,4 +107,17 @@ card(String service, String name, context) {
       height: 210,
     ),
   );
+}
+
+serviceCheck() async {
+  final prefs = await SharedPreferences.getInstance();
+  final double? Km = prefs.getDouble('ClientStay');
+
+  if (Km! <= 15) {
+    ready = 'พื้นที่พร้อมให้บริการ';
+    color = const Color(0xff97D8C4);
+  } else {
+    color = const Color(0xffdc143c);
+    ready = 'พื้นที่ยังไม่พร้อมให้บริการ';
+  }
 }
