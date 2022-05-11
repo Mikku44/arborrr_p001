@@ -67,40 +67,50 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  bool shouldPop = true;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
-      //ส่วนตกแต่งเมนู
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: const Color(0xFF121D22),
-        fixedColor: const Color(0xFF97D8C4),
-        type: BottomNavigationBarType.fixed,
-        // showUnselectedLabels: false,
-        // showSelectedLabels: false,
-        items: const [
-          BottomNavigationBarItem(
-              icon: Icon(IconData(0xf1cd, fontFamily: 'awesomefont'), size: 28),
-              label: "Home"),
-          BottomNavigationBarItem(
-              icon: Icon(IconData(0xf1d8, fontFamily: 'awesomefont'), size: 26),
-              label: "Message"),
-          BottomNavigationBarItem(
-              icon: Icon(IconData(0xf14e, fontFamily: 'awesomefont'), size: 30),
-              label: "Explore"),
-          BottomNavigationBarItem(
-              icon:
-                  Icon(IconData(0xe50d, fontFamily: 'MaterialIcons'), size: 28),
-              label: "Payment"),
-          BottomNavigationBarItem(
-              icon: Icon(IconData(0xf4fb, fontFamily: 'awesomefont'), size: 28),
-              label: "Profile"),
-        ],
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-      ),
-    );
+    return WillPopScope(
+        onWillPop: () async {
+          final shouldPop = await warNing(context);
+          return shouldPop ?? false;
+        },
+        child: Scaffold(
+          body: Center(
+            child: _widgetOptions.elementAt(_selectedIndex),
+          ),
+          //ส่วนตกแต่งเมนู
+          bottomNavigationBar: BottomNavigationBar(
+            backgroundColor: const Color(0xFF121D22),
+            fixedColor: const Color(0xFF97D8C4),
+            type: BottomNavigationBarType.fixed,
+            // showUnselectedLabels: false,
+            // showSelectedLabels: false,
+            items: const [
+              BottomNavigationBarItem(
+                  icon: Icon(IconData(0xf1cd, fontFamily: 'awesomefont'),
+                      size: 28),
+                  label: "Home"),
+              BottomNavigationBarItem(
+                  icon: Icon(IconData(0xf1d8, fontFamily: 'awesomefont'),
+                      size: 26),
+                  label: "Message"),
+              BottomNavigationBarItem(
+                  icon: Icon(IconData(0xf14e, fontFamily: 'awesomefont'),
+                      size: 30),
+                  label: "Explore"),
+              BottomNavigationBarItem(
+                  icon: Icon(IconData(0xe50d, fontFamily: 'MaterialIcons'),
+                      size: 28),
+                  label: "Payment"),
+              BottomNavigationBarItem(
+                  icon: Icon(IconData(0xf4fb, fontFamily: 'awesomefont'),
+                      size: 28),
+                  label: "Profile"),
+            ],
+            currentIndex: _selectedIndex,
+            onTap: _onItemTapped,
+          ),
+        ));
   }
 }

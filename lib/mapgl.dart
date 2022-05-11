@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:arborrr_p001/mec.dart' as main;
 import 'package:location/location.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
@@ -48,9 +47,9 @@ class _ViewBoxState extends State<ViewBox> {
     }
     // Gets the current location of the user
     final locationData = await location.getLocation();
-    LatLng Latlong = LatLng(
+    LatLng latLong = LatLng(
         locationData.latitude as double, locationData.longitude as double);
-    return Latlong;
+    return latLong;
   }
 
   late MapboxMapController controller;
@@ -59,7 +58,7 @@ class _ViewBoxState extends State<ViewBox> {
     final result = await acquireCurrentLocation() as LatLng;
     controller.animateCamera(CameraUpdate.newCameraPosition(
         CameraPosition(target: result, zoom: 15)));
-    AddPin('#ffffff', 8.313, 98.3995617);
+    addPin('#ffffff', 8.313, 98.3995617);
   }
 
   @override
@@ -117,15 +116,14 @@ class _ViewBoxState extends State<ViewBox> {
                       //วัดระยะของผู้ใช้กับพื้นที่ให้บริการ
                       //ถ้ามีหลายๆที่ให้ทำเป็นลิสต์
                       final prefs = await SharedPreferences.getInstance();
-                      var DistancePoint = await getDistanceFromLatLonInKm(
+                      var distancing = await getDistanceFromLatLonInKm(
                           8.313,
                           98.3995617,
                           locationData.latitude,
                           locationData.longitude);
-                      await prefs.setDouble('ClientStay', DistancePoint);
+                      await prefs.setDouble('ClientStay', distancing);
                       await main.serviceCheck();
-                      dev.log(
-                          'Distance : ${DistancePoint.toStringAsFixed(4)}Km');
+                      dev.log('Distance : ${distancing.toStringAsFixed(4)}Km');
                       setState(() {});
                     },
                     child: const Text('ยืนยันตำแหน่ง')),
@@ -153,6 +151,8 @@ class _ViewBoxState extends State<ViewBox> {
                 ),
               ),
             ),
+// Information tecnicial name
+
             // Visibility(
             //   visible: !acceptionBtn,
             //   child: Container(
@@ -254,7 +254,7 @@ class _ViewBoxState extends State<ViewBox> {
   }
 
   //UI Part
-  AddPin(String color, double lat, double lon) {
+  addPin(String color, double lat, double lon) {
     return controller.addCircle(CircleOptions(
       circleRadius: 8.0,
       circleColor: color,
@@ -266,8 +266,6 @@ class _ViewBoxState extends State<ViewBox> {
 
   //BackEnd part
 
-  // readData() => connect.map((snapshots) =>
-  //     snapshot.docs.map((doc) => User.fromJson(doc.data())).toList());
   getDistanceFromLatLonInKm(latS, lonS, latC, lonC) {
     var R = 6371; // Radius of the earth in km
     var dLat = deg2rad(latC - latS); // deg2rad below

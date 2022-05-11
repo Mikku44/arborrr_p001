@@ -1,5 +1,5 @@
+import 'package:arborrr_p001/mapgl.dart';
 import 'package:flutter/material.dart';
-import 'package:arborrr_p001/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 const primaryColor = Color(0xFF4059AD);
@@ -13,6 +13,8 @@ class Mec extends StatefulWidget {
   State<Mec> createState() => _MecState();
 }
 
+bool shouldPop = true;
+
 class _MecState extends State<Mec> {
   @override
   Widget build(BuildContext context) {
@@ -24,8 +26,16 @@ class _MecState extends State<Mec> {
             Padding(
               padding: const EdgeInsets.only(
                   bottom: 20, top: 20, right: 210, left: 20),
-              child: TextButton(
-                  onPressed: () {},
+              child: InkWell(
+                  onTap: () {
+                    showDialog(
+                        context: context,
+                        builder: (context) => const AlertDialog(
+                              content: Text(
+                                  'หากยังไม่ได้ยืนยันต่ำแหน่งให้ไปที่หน้า Explore แล้วกดปุ่ม "ยืนยันต่ำแหน่ง"'),
+                              title: Text('แถบสถานะการให้บริการ'),
+                            ));
+                  },
                   child: Container(
                     height: 25,
                     decoration: BoxDecoration(
@@ -123,8 +133,8 @@ cardBox(String text, String number, String url, context) {
         child: Container(
             decoration: const BoxDecoration(
                 gradient: LinearGradient(colors: [
-              Color.fromARGB(0, 0, 0, 0),
-              Color.fromARGB(176, 0, 0, 0)
+              Color.fromARGB(21, 0, 0, 0),
+              Color.fromARGB(217, 0, 0, 0)
             ])),
             child: Stack(alignment: AlignmentDirectional.centerEnd, children: [
               Padding(
@@ -148,3 +158,31 @@ cardBox(String text, String number, String url, context) {
             ])),
       ));
 }
+
+//Alert Exit
+Future<bool?> warNing(BuildContext context) async => showDialog<bool>(
+    context: context,
+    builder: (context) => AlertDialog(
+          title: const Text("คุณต้องการปิดแอพหรือไหม?",
+              style: TextStyle(color: Colors.white)),
+          content: const Text("กดยืนยันเพื่อปิดแอพลิเคชั่นตอนนี้",
+              style: TextStyle(color: Colors.white)),
+          backgroundColor: const Color(0xFF252525),
+          actions: [
+            ElevatedButton(
+              onPressed: () => Navigator.pop(context, true),
+              style: ElevatedButton.styleFrom(
+                  primary: Colors.white, onPrimary: Colors.red),
+              child: const Text(
+                "Yes",
+                style: TextStyle(color: Color.fromARGB(255, 255, 58, 58)),
+              ),
+            ),
+            TextButton(
+                onPressed: () => Navigator.pop(context, false),
+                child: const Text(
+                  "No",
+                  style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+                ))
+          ],
+        ));
