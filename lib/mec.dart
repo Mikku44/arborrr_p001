@@ -54,13 +54,41 @@ class _MecState extends State<Mec> {
                         style: TextStyle(color: Colors.white, fontSize: 14))
                   ],
                 )),
-            card('น้ำมันหมด', '01', context),
-            card('ยางแตก', '02', context),
-            card('หม้อน้ำแห้ง', '03', context),
-            card('สตาร์ทไม่ติด', '04', context),
-            card('โซ่ขาด', '05', context),
-            card('ยางแบน', '06', context),
-            card('บริการยกรถ', '07', context),
+            cardBox(
+                'น้ำมันหมด',
+                '01',
+                'https://images.unsplash.com/photo-1629241290025-6bb716261f5f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+                context),
+            cardBox(
+                'ยางแตก',
+                '02',
+                'https://images.unsplash.com/photo-1623706897185-32d543db92cf?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1167&q=80',
+                context),
+            cardBox(
+                'หม้อน้ำแห้ง',
+                '03',
+                'https://images.unsplash.com/photo-1544692414-636611c6ae73?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+                context),
+            cardBox(
+                'สตาร์ทไม่ติด',
+                '04',
+                'https://images.unsplash.com/photo-1535190458486-5fc153d35688?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80',
+                context),
+            cardBox(
+                'โซ่ขาด',
+                '05',
+                'https://images.unsplash.com/photo-1525207106105-b340f7384b30?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80',
+                context),
+            cardBox(
+                'ยางแบน',
+                '06',
+                'https://images.unsplash.com/photo-1619255238968-d336a42fc40d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1331&q=80',
+                context),
+            cardBox(
+                'บริการยกรถ',
+                '07',
+                'https://images.unsplash.com/photo-1628081182521-d6c4e374357f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80',
+                context),
           ],
         ),
       ),
@@ -68,47 +96,7 @@ class _MecState extends State<Mec> {
   }
 }
 
-card(String service, String name, context) {
-  return Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-    child: Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const Padding(
-            padding: EdgeInsets.only(top: 20),
-            child: Icon(
-              Icons.radio_button_unchecked,
-              color: Colors.white,
-              size: 28,
-            ),
-          ),
-          Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Text(
-                  service,
-                  style: const TextStyle(color: Colors.white, fontSize: 32),
-                ),
-                Text(
-                  name,
-                  style: const TextStyle(color: Colors.white, fontSize: 96),
-                ),
-              ])
-        ],
-      ),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: const Color(0x88000000),
-      ),
-      height: 210,
-    ),
-  );
-}
-
+// Back-end Part Distance check for service
 serviceCheck() async {
   final prefs = await SharedPreferences.getInstance();
   final double? Km = prefs.getDouble('ClientStay');
@@ -120,4 +108,43 @@ serviceCheck() async {
     color = const Color(0xffdc143c);
     ready = 'พื้นที่ยังไม่พร้อมให้บริการ';
   }
+}
+
+//UI Part
+//card function
+cardBox(String text, String number, String url, context) {
+  return Container(
+      margin: const EdgeInsets.all(5),
+      child: Card(
+        color: Colors.black,
+        elevation: 5,
+        clipBehavior: Clip.antiAlias,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        child: Container(
+            decoration: const BoxDecoration(
+                gradient: LinearGradient(colors: [
+              Color.fromARGB(0, 0, 0, 0),
+              Color.fromARGB(176, 0, 0, 0)
+            ])),
+            child: Stack(alignment: AlignmentDirectional.centerEnd, children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 25, right: 20),
+                child: Stack(alignment: AlignmentDirectional.topEnd, children: [
+                  Text(
+                    text,
+                    style: const TextStyle(color: Colors.white, fontSize: 32),
+                  ),
+                  Text(
+                    number,
+                    style: const TextStyle(color: Colors.white, fontSize: 96),
+                  )
+                ]),
+              ),
+              Ink.image(
+                  image: NetworkImage(url),
+                  height: 215,
+                  fit: BoxFit.cover,
+                  child: InkWell(onTap: () {}))
+            ])),
+      ));
 }

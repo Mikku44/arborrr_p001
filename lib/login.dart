@@ -1,10 +1,17 @@
 import 'package:arborrr_p001/main.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/otp_text_field.dart';
 import 'package:otp_text_field/style.dart';
 import 'dart:developer';
+
+Future<void> createUser(BuildContext context, Map<String, dynamic> data,
+    String documentName) async {
+  return;
+}
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
