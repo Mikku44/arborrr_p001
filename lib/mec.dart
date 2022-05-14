@@ -1,4 +1,5 @@
-import 'package:arborrr_p001/mapgl.dart';
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -32,7 +33,7 @@ class _MecState extends State<Mec> {
                         context: context,
                         builder: (context) => const AlertDialog(
                               content: Text(
-                                  'หากยังไม่ได้ยืนยันต่ำแหน่งให้ไปที่หน้า Explore แล้วกดปุ่ม "ยืนยันต่ำแหน่ง"'),
+                                  'หากยังไม่ได้ยืนยันตำแหน่งให้ไปที่หน้า Explore แล้วกดปุ่ม "ยืนยันต่ำแหน่ง"'),
                               title: Text('แถบสถานะการให้บริการ'),
                             ));
                   },

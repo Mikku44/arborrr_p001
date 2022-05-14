@@ -3,9 +3,6 @@ import "package:flutter/material.dart";
 import "package:flutter_map/flutter_map.dart";
 import "package:latlong2/latlong.dart";
 import 'package:geolocator/geolocator.dart';
-import "package:http/http.dart" as http;
-import "dart:convert" as convert;
-import 'dart:developer';
 
 var latLngValue = LatLng(7, 80);
 // var latLngValue = getLatLng() as LatLng;
@@ -76,7 +73,7 @@ class _MapPageState extends State<MapPage> {
             icon = const Icon(Icons.my_location);
             Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(builder: (context) => MyHomePage()),
+              MaterialPageRoute(builder: (context) => const MyHomePage()),
               (Route<dynamic> route) => false,
             );
             setState(() {});

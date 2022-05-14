@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
-import 'package:arborrr_p001/login.dart';
-// import 'package:arborrr_p001/profile.dart';
+import 'package:arborrr_p001/newUser.dart';
+import 'package:arborrr_p001/profile.dart';
 import 'package:arborrr_p001/Message.dart';
-import 'package:arborrr_p001/Payment.dart';
+// import 'package:arborrr_p001/Payment.dart';
 import 'package:arborrr_p001/mec.dart';
 import 'package:arborrr_p001/mapgl.dart';
 
@@ -56,10 +56,8 @@ class _MyHomePageState extends State<MyHomePage> {
     Mec(),
     Message(),
     ViewBox(),
-    Payment(),
-    Text(
-      'Index 5: Profile',
-    ),
+    CreateUser(),
+    Profile(),
   ];
   void _onItemTapped(int index) {
     setState(() {

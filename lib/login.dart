@@ -1,17 +1,13 @@
-import 'package:arborrr_p001/main.dart';
+import 'package:arborrr_p001/newUser.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/otp_text_field.dart';
 import 'package:otp_text_field/style.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:developer';
 
-Future<void> createUser(BuildContext context, Map<String, dynamic> data,
-    String documentName) async {
-  return;
-}
+const primaryColor = Color(0xFF4059AD);
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -53,7 +49,6 @@ class _LoginState extends State<Login> {
   String btn = 'ดำเนินการต่อ';
   String inputHeader = "เบอร์โทรศัพท์";
   TextEditingController phoneController = TextEditingController();
-  // TextEditingController otpCode = TextEditingController();
 
   get otpCode => null;
 
@@ -155,15 +150,17 @@ class _LoginState extends State<Login> {
               autofocus: true,
               style: ElevatedButton.styleFrom(primary: const Color(0xFF353535)),
               onPressed: () {
-                if (phoneController.text != '') {
+                if (phoneController.text != '' &&
+                    (phoneController.text).length == 9 &&
+                    (phoneController.text)[0] != '0') {
                   verifyNumber();
                 } else {
                   showDialog(
                       context: context,
                       builder: (context) => AlertDialog(
-                              title: const Text('ไม่สามารถทำรายการได้'),
-                              content:
-                                  const Text('โปรดใส่หมายเลขโทรศัพท์ของคุณ'),
+                              title: const Text('ทำรายการไม่สำเร็จ'),
+                              content: const Text(
+                                  'โปรดใส่หมายเลขโทรศัพท์ของคุณ ตัวอย่างเช่น (0)622080994'),
                               actions: [
                                 TextButton(
                                   child: const Text("เข้าใจแล้ว"),
@@ -198,7 +195,7 @@ class _LoginState extends State<Login> {
         },
         codeSent: (String verificationID, int? resendToken) {
           verificationIDR = verificationID;
-          btn = 'เข้าสู่ระบบ';
+          btn = 'รับรหัสผ่านอีกครั้ง';
           inputHeader = "OTP Code";
           otpCodehide = true;
           setState(() {});
@@ -210,15 +207,23 @@ class _LoginState extends State<Login> {
   }
 
   void verifyCode(pin) async {
+    final prefs = await SharedPreferences.getInstance();
+
     PhoneAuthCredential credential = PhoneAuthProvider.credential(
       verificationId: verificationIDR,
       smsCode: pin,
     );
-    await auth.signInWithCredential(credential).then((value) {
-      log("Success login!!");
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const MyHomePage()),
-      );
-    });
+
+    try {
+      await auth.signInWithCredential(credential).then((value) {
+        log("Success login!!");
+        prefs.setString('phone', '0' + phoneController.text);
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const CreateUser()),
+        );
+      });
+    } catch (e) {
+      log('error');
+    }
   }
 }
