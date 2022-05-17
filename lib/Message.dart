@@ -38,7 +38,24 @@ class _MessageState extends State<Message> {
             flex: 3,
             child: Container(
               padding: EdgeInsets.all(25),
-              child: ListView(children: [Text('hello world')]),
+              child: ListView(children: [
+                Text('Start'),
+                Text('hello world'),
+                Text('hello world'),
+                Text('hello world'),
+                Text('hello world'),
+                Text('hello world'),
+                Text('hello world'),
+                Text('hello world'),
+                Text('hello world'),
+                Text('hello world'),
+                Text('hello world'),
+                Text('hello world'),
+                Text('hello world'),
+                Text('hello world'),
+                Text('hello world'),
+                Text('END')
+              ]),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
@@ -48,34 +65,36 @@ class _MessageState extends State<Message> {
             ),
           ),
           Container(
-              color: Colors.white,
-              child: Container(
-                width: MediaQuery.of(context).size.width - 30,
-                margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 232, 232, 232),
-                    borderRadius: BorderRadius.circular(50)),
-                child:
-                    Stack(alignment: AlignmentDirectional.centerEnd, children: [
-                  Padding(
-                      padding: EdgeInsets.only(left: 20, right: 70),
-                      child: TextField(
-                          scrollController: null,
-                          controller: null,
-                          decoration: InputDecoration(
-                              hintText: 'Type somthing....',
-                              focusedBorder: InputBorder.none))),
-                  Container(
-                      height: 40,
-                      child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              elevation: 0,
-                              primary: Color(0xff4059ad),
-                              shape: CircleBorder()),
-                          onPressed: () {},
-                          child: Icon(Icons.send_rounded, size: 24)))
-                ]),
-              )),
+            color: Colors.white,
+            child: Container(
+              width: MediaQuery.of(context).size.width - 30,
+              margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              decoration: BoxDecoration(
+                  color: Color.fromARGB(255, 232, 232, 232),
+                  borderRadius: BorderRadius.circular(50)),
+              child:
+                  Stack(alignment: AlignmentDirectional.centerEnd, children: [
+                Padding(
+                    padding: EdgeInsets.only(left: 20, right: 70),
+                    child: TextField(
+                        scrollController: null,
+                        controller: null,
+                        decoration: InputDecoration(
+                            hintText: 'Type somthing....',
+                            focusedBorder: InputBorder.none,
+                            border: InputBorder.none))),
+                Container(
+                    height: 40,
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            elevation: 0,
+                            primary: Color(0xff4059ad),
+                            shape: CircleBorder()),
+                        onPressed: () {},
+                        child: Icon(Icons.send_rounded, size: 24)))
+              ]),
+            ),
+          ),
         ],
       ),
     );

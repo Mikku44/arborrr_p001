@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'firebase_options.dart';
 import 'package:arborrr_p001/newUser.dart';
 import 'package:arborrr_p001/profile.dart';
 import 'package:arborrr_p001/Message.dart';
+import 'package:arborrr_p001/login.dart';
 // import 'package:arborrr_p001/Payment.dart';
 import 'package:arborrr_p001/mec.dart';
 import 'package:arborrr_p001/mapgl.dart';
@@ -38,7 +40,19 @@ class MyApp extends StatelessWidget {
         fontFamily: 'SukhumvitSet',
       ),
       debugShowCheckedModeBanner: false,
-      home: const MyHomePage(),
+      home: StreamBuilder<User?>(
+          stream: FirebaseAuth.instance.authStateChanges(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return Center(child: Text('Somthing was wrong!'));
+            } else if (snapshot.hasData) {
+              return const MyHomePage();
+            } else {
+              return const Login();
+            }
+          }),
     );
   }
 }
@@ -77,6 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
           body: Center(
             child: _widgetOptions.elementAt(_selectedIndex),
           ),
+
           //ส่วนตกแต่งเมนู
           bottomNavigationBar: BottomNavigationBar(
             backgroundColor: const Color(0xFF121D22),

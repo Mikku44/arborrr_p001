@@ -1,6 +1,7 @@
 import 'package:arborrr_p001/newUser.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/otp_text_field.dart';
 import 'package:otp_text_field/style.dart';
@@ -8,6 +9,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:developer';
 
 const primaryColor = Color(0xFF4059AD);
+//connect to firebase
+var db = FirebaseFirestore.instance;
+//Access to user information
+final user = FirebaseAuth.instance.currentUser!;
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -123,6 +128,11 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                 ),
+                Visibility(
+                    visible: true,
+                    child: TextButton(
+                        onPressed: () {},
+                        child: const Icon(Icons.arrow_back_ios_rounded)))
               ],
             ),
           ),
@@ -218,12 +228,28 @@ class _LoginState extends State<Login> {
       await auth.signInWithCredential(credential).then((value) {
         log("Success login!!");
         prefs.setString('phone', '0' + phoneController.text);
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const CreateUser()),
-        );
+        var phone = '0' + phoneController.text;
+        getStarted_readData(phone, context);
       });
     } catch (e) {
-      log('error');
+      log('Error');
     }
   }
+}
+
+//GET Regitered User
+getStarted_readData(phone, context) async {
+  // [START get_started_read_data]
+  await db.collection("users").get().then((event) {
+    for (var doc in event.docs) {
+      log("${phone} => ${doc.data()['phone']}");
+      if (doc.data()['phone'] != phone) {
+        log('false');
+      } else {
+        log('true');
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => const CreateUser()));
+      }
+    }
+  });
 }
