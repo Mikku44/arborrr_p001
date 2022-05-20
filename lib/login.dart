@@ -1,17 +1,21 @@
 import 'package:arborrr_p001/newUser.dart';
+import 'package:arborrr_p001/main.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/otp_text_field.dart';
 import 'package:otp_text_field/style.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:developer';
 
 const primaryColor = Color(0xFF4059AD);
+
 //connect to firebase
 var db = FirebaseFirestore.instance;
+
 //Access to user information
+FirebaseAuth auth = FirebaseAuth.instance;
 final user = FirebaseAuth.instance.currentUser!;
 
 class Login extends StatefulWidget {
@@ -48,9 +52,10 @@ class _LoginState extends State<Login> {
                   ))
             ],
           ));
-  FirebaseAuth auth = FirebaseAuth.instance;
+
   String verificationIDR = "";
   bool otpCodehide = false;
+  bool hasError = false;
   String btn = 'ดำเนินการต่อ';
   String inputHeader = "เบอร์โทรศัพท์";
   TextEditingController phoneController = TextEditingController();
@@ -67,12 +72,19 @@ class _LoginState extends State<Login> {
       },
       child: Scaffold(
         appBar: AppBar(
+          centerTitle: true,
           backgroundColor: primaryColor,
-          title: Row(
-            children: const [
-              Text('Login'),
-            ],
-          ),
+          leading: Visibility(
+              visible: otpCodehide,
+              child: InkWell(
+                  onTap: () {
+                    otpCodehide = false;
+                    btn = 'ดำเนินการต่อ';
+                    inputHeader = "เบอร์โทรศัพท์";
+                    setState(() {});
+                  },
+                  child: const Icon(Icons.arrow_back_ios_new_rounded))),
+          title: const Text('Login'),
           elevation: 0,
         ),
         body: Wrap(runSpacing: 30, alignment: WrapAlignment.center, children: <
@@ -87,7 +99,7 @@ class _LoginState extends State<Login> {
                   visible: otpCodehide,
                   child: Center(
                     child: OTPTextField(
-                        hasError: false,
+                        hasError: hasError,
                         controller: otpCode,
                         length: 6,
                         fieldWidth: 45,
@@ -98,7 +110,10 @@ class _LoginState extends State<Login> {
                         style: const TextStyle(
                             fontSize: 32,
                             color: Color.fromARGB(255, 29, 29, 29)),
-                        onChanged: (pin) {},
+                        onChanged: (pin) {
+                          hasError = false;
+                          setState(() {});
+                        },
                         onCompleted: (pin) {
                           log("Completed: " + pin);
                           verifyCode(pin);
@@ -128,11 +143,6 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                 ),
-                Visibility(
-                    visible: true,
-                    child: TextButton(
-                        onPressed: () {},
-                        child: const Icon(Icons.arrow_back_ios_rounded)))
               ],
             ),
           ),
@@ -160,23 +170,28 @@ class _LoginState extends State<Login> {
               autofocus: true,
               style: ElevatedButton.styleFrom(primary: const Color(0xFF353535)),
               onPressed: () {
-                if (phoneController.text != '' &&
-                    (phoneController.text).length == 9 &&
-                    (phoneController.text)[0] != '0') {
-                  verifyNumber();
+                if (!otpCodehide) {
+                  if (phoneController.text != '' &&
+                      (phoneController.text).length == 9 &&
+                      (phoneController.text)[0] != '0') {
+                    verifyNumber();
+                  } else {
+                    showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                                title: const Text('ทำรายการไม่สำเร็จ'),
+                                content: const Text(
+                                    'โปรดใส่หมายเลขโทรศัพท์ของคุณ ตัวอย่างเช่น (0)622080994'),
+                                actions: [
+                                  TextButton(
+                                    child: const Text("เข้าใจแล้ว"),
+                                    onPressed: () =>
+                                        Navigator.pop(context, true),
+                                  ),
+                                ]));
+                  }
                 } else {
-                  showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                              title: const Text('ทำรายการไม่สำเร็จ'),
-                              content: const Text(
-                                  'โปรดใส่หมายเลขโทรศัพท์ของคุณ ตัวอย่างเช่น (0)622080994'),
-                              actions: [
-                                TextButton(
-                                  child: const Text("เข้าใจแล้ว"),
-                                  onPressed: () => Navigator.pop(context, true),
-                                ),
-                              ]));
+                  verifyNumber();
                 }
               },
               child: Text(
@@ -217,8 +232,6 @@ class _LoginState extends State<Login> {
   }
 
   void verifyCode(pin) async {
-    final prefs = await SharedPreferences.getInstance();
-
     PhoneAuthCredential credential = PhoneAuthProvider.credential(
       verificationId: verificationIDR,
       smsCode: pin,
@@ -227,29 +240,32 @@ class _LoginState extends State<Login> {
     try {
       await auth.signInWithCredential(credential).then((value) {
         log("Success login!!");
-        prefs.setString('phone', '0' + phoneController.text);
-        var phone = '0' + phoneController.text;
-        getStarted_readData(phone, context);
+        newbie(context);
       });
     } catch (e) {
+      hasError = true;
+      setState(() {});
       log('Error');
     }
   }
 }
 
-//GET Regitered User
-getStarted_readData(phone, context) async {
-  // [START get_started_read_data]
-  await db.collection("users").get().then((event) {
-    for (var doc in event.docs) {
-      log("${phone} => ${doc.data()['phone']}");
-      if (doc.data()['phone'] != phone) {
-        log('false');
-      } else {
-        log('true');
+//To Check It's new User?
+newbie(context) async {
+  final docRef = db.collection("users").doc(user.uid);
+  docRef.snapshots().listen(
+    (event) {
+      log('${event.data()}');
+      if (event.data() == null) {
         Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: (context) => const CreateUser()));
+      } else {
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => const MyHomePage()));
       }
-    }
-  });
+    },
+    onError: (error) {
+      log('error $error');
+    },
+  );
 }

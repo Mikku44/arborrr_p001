@@ -1,13 +1,17 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'dart:developer';
+import 'package:arborrr_p001/login.dart';
+import 'package:arborrr_p001/functions/getUser.dart';
+import 'package:arborrr_p001/functions/getEmail.dart';
+import 'package:arborrr_p001/functions/getPic.dart';
+import 'dart:developer' as dev;
 
 const primaryColor = Color(0xFF4059AD);
 //connect to firebase
 var db = FirebaseFirestore.instance;
-//Access to user information
-final user = FirebaseAuth.instance.currentUser!;
+//connect to collection users
+var x = db.collection('users').doc(user.uid);
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -58,19 +62,15 @@ class _ProfileState extends State<Profile> {
                         width: 145,
                         child: ClipRRect(
                             borderRadius: BorderRadius.circular(20),
-                            child: Image(
-                                fit: BoxFit.fitHeight,
-                                image: NetworkImage(
-                                    'https://images.unsplash.com/photo-1472718790858-091e4a486677?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80')))),
+                            child: const Text('')
+                            // Pic()
+                            )),
                     Padding(
                         padding: const EdgeInsets.only(left: 20),
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Row(children: [
-                                Text('Name',
-                                    style: const TextStyle(fontSize: 32)),
-                              ]),
+                              // const fireStoreUser(),
                               InkWell(
                                 onTap: () {},
                                 child: Row(children: const [
@@ -81,11 +81,10 @@ class _ProfileState extends State<Profile> {
                               const Text('Phone',
                                   style: TextStyle(fontSize: 10)),
                               Text('${user.phoneNumber}',
-                                  style: TextStyle(fontSize: 16)),
+                                  style: const TextStyle(fontSize: 16)),
                               const Text('Email',
                                   style: TextStyle(fontSize: 10)),
-                              Text('contact@arborrr.com',
-                                  style: TextStyle(fontSize: 16)),
+                              // const Email(),
                             ]))
                   ]),
                   Card(
@@ -127,23 +126,32 @@ class _ProfileState extends State<Profile> {
                       child: Row(children: const [
                         Icon(Icons.support, color: Colors.white),
                         Text(' Help & Feedback ',
-                            style: const TextStyle(color: Colors.white)),
+                            style: TextStyle(color: Colors.white)),
                       ]),
                     ),
                   ),
-                  Container(
+                  SizedBox(
                       width: MediaQuery.of(context).size.width,
                       child: InkWell(
                           child: const Text('ศูนย์ช่วยเหลือ'), onTap: () {})),
-                  Container(
+                  SizedBox(
                       width: MediaQuery.of(context).size.width,
                       child: InkWell(
                           child: const Text('ข้อเสนอแนะ & ความคิดเห็น'),
                           onTap: () {})),
-                  Container(
+                  SizedBox(
                       width: MediaQuery.of(context).size.width,
                       child: InkWell(
-                          child: const Text('Terms & Policies'), onTap: () {})),
+                          child: const Text('Terms & Policies'),
+                          onTap: () async {
+                            db
+                                .collection('users')
+                                .doc(user.uid)
+                                .snapshots()
+                                .listen((event) {
+                              dev.log('${event.data()}');
+                            });
+                          })),
                 ],
               ),
             ),
@@ -193,10 +201,7 @@ class _ProfileState extends State<Profile> {
                   'ลงชื่อออก',
                 ),
                 onPressed: () async {
-                  FirebaseAuth.instance.signOut();
-                  // Navigator.of(context).pushReplacement(
-                  //   MaterialPageRoute(builder: (context) => const Login()),
-                  // );
+                  await auth.signOut();
                 },
                 style: ElevatedButton.styleFrom(
                     elevation: 0,

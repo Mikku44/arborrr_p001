@@ -6,6 +6,7 @@ import 'package:arborrr_p001/newUser.dart';
 import 'package:arborrr_p001/profile.dart';
 import 'package:arborrr_p001/Message.dart';
 import 'package:arborrr_p001/login.dart';
+import 'package:arborrr_p001/functions/getUser.dart';
 // import 'package:arborrr_p001/Payment.dart';
 import 'package:arborrr_p001/mec.dart';
 import 'package:arborrr_p001/mapgl.dart';
@@ -70,8 +71,8 @@ class _MyHomePageState extends State<MyHomePage> {
     Mec(),
     Message(),
     ViewBox(),
-    CreateUser(),
     Profile(),
+    fireStoreUser(),
   ];
   void _onItemTapped(int index) {
     setState(() {

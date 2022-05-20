@@ -67,8 +67,8 @@ class _ViewBoxState extends State<ViewBox> {
         'pk.eyJ1IjoiYW5kYWxhbmd1IiwiYSI6ImNsMnVlOWRlNjAxNjgzY3Jxb2hvb2xidTMifQ.K3sCVYf7NoKNBaCWa9qFlA';
     const String style = 'mapbox://styles/andalangu/cl2ueg701000w14pobkyikmta';
     return Scaffold(
-      body: MaterialApp(
-        home: MapboxMap(
+      body: Material(
+        child: MapboxMap(
             accessToken: token,
             styleString: style,
             myLocationEnabled: true,
