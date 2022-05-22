@@ -70,37 +70,44 @@ class _MecState extends State<Mec> {
                 'น้ำมันหมด',
                 '01',
                 'https://images.unsplash.com/photo-1629241290025-6bb716261f5f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-                context),
+                context,
+                1),
             cardBox(
                 'ยางแตก',
                 '02',
                 'https://images.unsplash.com/photo-1623706897185-32d543db92cf?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1167&q=80',
-                context),
+                context,
+                2),
             cardBox(
                 'หม้อน้ำแห้ง',
                 '03',
                 'https://images.unsplash.com/photo-1544692414-636611c6ae73?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-                context),
+                context,
+                3),
             cardBox(
                 'สตาร์ทไม่ติด',
                 '04',
                 'https://images.unsplash.com/photo-1535190458486-5fc153d35688?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80',
-                context),
+                context,
+                4),
             cardBox(
                 'โซ่ขาด',
                 '05',
                 'https://images.unsplash.com/photo-1525207106105-b340f7384b30?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80',
-                context),
+                context,
+                5),
             cardBox(
                 'ยางแบน',
                 '06',
                 'https://images.unsplash.com/photo-1619255238968-d336a42fc40d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1331&q=80',
-                context),
+                context,
+                6),
             cardBox(
                 'บริการยกรถ',
                 '07',
                 'https://images.unsplash.com/photo-1628081182521-d6c4e374357f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80',
-                context),
+                context,
+                7),
           ],
         ),
       ),
@@ -124,7 +131,7 @@ serviceCheck() async {
 
 //UI Part
 //card function
-cardBox(String text, String number, String url, context) {
+cardBox(String text, String number, String url, context, int service) {
   return Container(
       margin: const EdgeInsets.all(5),
       child: Card(
@@ -161,7 +168,7 @@ cardBox(String text, String number, String url, context) {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const Confirm()));
+                            builder: (context) => Confirm(option: service)));
                   }))
             ])),
       ));
