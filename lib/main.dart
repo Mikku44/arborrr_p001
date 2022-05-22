@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'firebase_options.dart';
-import 'package:arborrr_p001/newUser.dart';
 import 'package:arborrr_p001/profile.dart';
 import 'package:arborrr_p001/Message.dart';
 import 'package:arborrr_p001/login.dart';
@@ -11,7 +10,7 @@ import 'package:arborrr_p001/functions/getUser.dart';
 import 'package:arborrr_p001/mec.dart';
 import 'package:arborrr_p001/mapgl.dart';
 
-const primaryColor = Color(0xFF4059AD);
+const primaryColor = Color(0xFF4059ad);
 
 Future<void> main() async {
   //เชื่อมแอพกับไฟร์เบส
@@ -45,9 +44,9 @@ class MyApp extends StatelessWidget {
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError) {
-              return Center(child: Text('Somthing was wrong!'));
+              return const Center(child: Text('Somthing was wrong!'));
             } else if (snapshot.hasData) {
               return const MyHomePage();
             } else {
@@ -72,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Message(),
     ViewBox(),
     Profile(),
-    fireStoreUser(),
+    StoreUser(),
   ];
   void _onItemTapped(int index) {
     setState(() {

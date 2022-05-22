@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:arborrr_p001/functions/confirm.dart';
 
 const primaryColor = Color(0xFF4059AD);
 String ready = 'ยังไม่พร้อมให้บริการ';
@@ -155,7 +156,13 @@ cardBox(String text, String number, String url, context) {
                   image: NetworkImage(url),
                   height: 215,
                   fit: BoxFit.cover,
-                  child: InkWell(onTap: () {}))
+                  child: InkWell(onTap: () {
+                    // Navigator.pop(context, true);
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Confirm()));
+                  }))
             ])),
       ));
 }

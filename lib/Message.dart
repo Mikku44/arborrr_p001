@@ -29,16 +29,16 @@ class _MessageState extends State<Message> {
           Expanded(
             flex: 2,
             child: Container(
-                padding: EdgeInsets.only(top: 10, left: 20),
-                color: Color(0xff4059ad),
-                child: Text('HALEY\nQuenn',
+                padding: const EdgeInsets.only(top: 10, left: 20),
+                color: const Color(0xff4059ad),
+                child: const Text('HALEY\nQuenn',
                     style: TextStyle(fontSize: 32, color: Colors.white))),
           ),
           Expanded(
             flex: 3,
             child: Container(
-              padding: EdgeInsets.all(25),
-              child: ListView(children: [
+              padding: const EdgeInsets.all(25),
+              child: ListView(children: const [
                 Text('Start'),
                 Text('hello world'),
                 Text('hello world'),
@@ -56,7 +56,7 @@ class _MessageState extends State<Message> {
                 Text('hello world'),
                 Text('END')
               ]),
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
                     topRight: Radius.circular(20.0),
@@ -68,13 +68,13 @@ class _MessageState extends State<Message> {
             color: Colors.white,
             child: Container(
               width: MediaQuery.of(context).size.width - 30,
-              margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 232, 232, 232),
+                  color: const Color.fromARGB(255, 232, 232, 232),
                   borderRadius: BorderRadius.circular(50)),
               child:
                   Stack(alignment: AlignmentDirectional.centerEnd, children: [
-                Padding(
+                const Padding(
                     padding: EdgeInsets.only(left: 20, right: 70),
                     child: TextField(
                         scrollController: null,
@@ -83,15 +83,15 @@ class _MessageState extends State<Message> {
                             hintText: 'Type somthing....',
                             focusedBorder: InputBorder.none,
                             border: InputBorder.none))),
-                Container(
+                SizedBox(
                     height: 40,
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                             elevation: 0,
-                            primary: Color(0xff4059ad),
-                            shape: CircleBorder()),
+                            primary: const Color(0xff4059ad),
+                            shape: const CircleBorder()),
                         onPressed: () {},
-                        child: Icon(Icons.send_rounded, size: 24)))
+                        child: const Icon(Icons.send_rounded, size: 24)))
               ]),
             ),
           ),

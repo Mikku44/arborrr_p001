@@ -1,10 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:arborrr_p001/login.dart';
-import 'package:arborrr_p001/functions/getUser.dart';
-import 'package:arborrr_p001/functions/getEmail.dart';
-import 'package:arborrr_p001/functions/getPic.dart';
 import 'dart:developer' as dev;
 
 const primaryColor = Color(0xFF4059AD);
@@ -122,7 +118,7 @@ class _ProfileState extends State<Profile> {
                     color: const Color(0xcc4059ad),
                     child: Container(
                       width: 150,
-                      padding: EdgeInsets.all(5),
+                      padding: const EdgeInsets.all(5),
                       child: Row(children: const [
                         Icon(Icons.support, color: Colors.white),
                         Text(' Help & Feedback ',
