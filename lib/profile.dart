@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:arborrr_p001/login.dart';
-import 'dart:developer' as dev;
+import 'dart:developer';
 
 const primaryColor = Color(0xFF4059AD);
 //connect to firebase
@@ -138,16 +138,7 @@ class _ProfileState extends State<Profile> {
                   SizedBox(
                       width: MediaQuery.of(context).size.width,
                       child: InkWell(
-                          child: const Text('Terms & Policies'),
-                          onTap: () async {
-                            db
-                                .collection('users')
-                                .doc(user.uid)
-                                .snapshots()
-                                .listen((event) {
-                              dev.log('${event.data()}');
-                            });
-                          })),
+                          child: const Text('Terms & Policies'), onTap: () {})),
                 ],
               ),
             ),
@@ -210,4 +201,10 @@ class _ProfileState extends State<Profile> {
       )),
     );
   }
+}
+
+listenData() {
+  db.collection('users').doc(user.uid).snapshots().listen((event) {
+    log('${event.data()}');
+  });
 }
