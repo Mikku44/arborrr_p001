@@ -1,10 +1,9 @@
 // ignore_for_file: file_names, constant_identifier_names
-
+//import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:arborrr_p001/functions/userInfo.dart';
-import 'package:arborrr_p001/functions/stream.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/dom.dart' as dom;
 import 'dart:developer';
@@ -220,21 +219,16 @@ class _ConfirmState extends State<Confirm> {
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(primary: b),
                         onPressed: () {
-                          // if (accept != 'ยืนยันคำขอแล้ว') {
-                          //   try {
-                          //     // use to collect data to firestore
-                          //     var old = double.parse(prices.text);
-                          //     collectRequest(old, _character);
-                          //   } catch (e) {
-                          //     log("can't collect");
-                          //   }
-                          //   setState(() {});
-                          // }
-
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => UserInformation()));
+                          if (accept != 'ยืนยันคำขอแล้ว') {
+                            try {
+                              // use to collect data to firestore
+                              var old = double.parse(prices.text);
+                              collectRequest(old, _character);
+                            } catch (e) {
+                              log("can't collect");
+                            }
+                            setState(() {});
+                          }
                         },
                         child: Text(accept),
                       ))
