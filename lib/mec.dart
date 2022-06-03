@@ -34,7 +34,7 @@ class _MecState extends State<Mec> {
                         context: context,
                         builder: (context) => const AlertDialog(
                               content: Text(
-                                  'หากยังไม่ได้ยืนยันตำแหน่งให้ไปที่หน้า Explore แล้วกดปุ่ม "ยืนยันต่ำแหน่ง"'),
+                                  'หากยังไม่ได้ยืนยันตำแหน่งให้ไปที่หน้า Explore แล้วกดปุ่ม "ยืนยันตำแหน่ง"'),
                               title: Text('แถบสถานะการให้บริการ'),
                             ));
                   },

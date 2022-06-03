@@ -6,10 +6,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/otp_text_field.dart';
 import 'package:otp_text_field/style.dart';
+import 'package:arborrr_p001/functions/userInfo.dart' as ui;
 // import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:developer';
 
-const primaryColor = Color(0xFF4059AD);
+var primaryColor = ui.primaryTheme;
 
 //connect to firebase
 var db = FirebaseFirestore.instance;

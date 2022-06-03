@@ -1,10 +1,9 @@
 // ignore_for_file: file_names
 
-import 'package:flutter/Material.dart';
 import 'package:flutter/material.dart';
 import 'package:arborrr_p001/functions/userInfo.dart' as ui;
 
-const primaryColor = Color(0xFF4059AD);
+var primaryColor = ui.primaryTheme;
 // import 'package:shared_preferences/shared_preferences.dart';
 
 class Message extends StatefulWidget {
@@ -31,7 +30,6 @@ class _MessageState extends State<Message> {
             flex: 2,
             child: Container(
                 padding: const EdgeInsets.only(top: 10, left: 20),
-                color: const Color(0xff4059ad),
                 child: Text('HALEY\nQuenn',
                     style: TextStyle(fontSize: 32, color: ui.foreground))),
           ),
@@ -77,7 +75,7 @@ class _MessageState extends State<Message> {
                         scrollController: null,
                         controller: null,
                         decoration: InputDecoration(
-                            hintText: 'Type somthing....',
+                            hintText: 'Type something....',
                             focusedBorder: InputBorder.none,
                             border: InputBorder.none))),
                 SizedBox(
