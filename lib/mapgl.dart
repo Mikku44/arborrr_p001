@@ -122,6 +122,8 @@ class _ViewBoxState extends State<ViewBox> {
                           locationData.latitude,
                           locationData.longitude);
                       await prefs.setDouble('ClientStay', distancing);
+                      await prefs.setDouble('LatUser', locationData.latitude!);
+                      await prefs.setDouble('LonUser', locationData.longitude!);
                       await main.serviceCheck();
                       dev.log('Distance : ${distancing.toStringAsFixed(4)}Km');
                       setState(() {});
@@ -265,7 +267,7 @@ class _ViewBoxState extends State<ViewBox> {
   }
 
   //BackEnd part
-
+// calculate distance user and tecnicial
   getDistanceFromLatLonInKm(latS, lonS, latC, lonC) {
     var R = 6371; // Radius of the earth in km
     var dLat = deg2rad(latC - latS); // deg2rad below
