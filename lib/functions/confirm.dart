@@ -176,11 +176,13 @@ class _ConfirmState extends State<Confirm> {
                   Column(
                     children: [
                       SizedBox(
-                          width: 250,
+                          width: 100,
                           child: TextField(
                             cursorColor: Colors.black87,
                             textAlign: TextAlign.center,
                             decoration: const InputDecoration(
+                                isDense: true, // Added this
+                                contentPadding: EdgeInsets.all(8),
                                 hintText: "ระบุราคาที่ต้องการ",
                                 hintStyle: TextStyle(fontSize: 18),
                                 focusedBorder: OutlineInputBorder(
@@ -299,13 +301,13 @@ collectRequest(cost, _character) async {
   accept = 'ยืนยันคำขอแล้ว';
   b = Colors.black12;
   var currentUser = await getCurrentUser();
-  int timestamp = DateTime.now().millisecondsSinceEpoch;
-  DateTime tsdate = DateTime.fromMillisecondsSinceEpoch(timestamp);
-  String datetime = tsdate.year.toString() +
-      "/" +
-      tsdate.month.toString() +
-      "/" +
-      tsdate.day.toString();
+  // int timestamp = DateTime.now().millisecondsSinceEpoch;
+  // DateTime tsdate = DateTime.fromMillisecondsSinceEpoch(timestamp);
+  // String datetime = tsdate.year.toString() +
+  //     "/" +
+  //     tsdate.month.toString() +
+  //     "/" +
+  //     tsdate.day.toString();
   db.collection('requestments').add({
     "userID": userID,
     "address": currentUser,
@@ -314,6 +316,6 @@ collectRequest(cost, _character) async {
     "Payment": 'Not pay yet',
     "RiderID": 'RiderID',
     "Process": 'waiting',
-    "timeStamp": datetime
+    "timeStamp": Timestamp.now(),
   });
 }

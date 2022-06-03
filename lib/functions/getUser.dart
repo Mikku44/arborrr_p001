@@ -1,12 +1,17 @@
-// ignore_for_file: unused_import, file_names
+// ignore_for_file: unused_import, file_names, unrelated_type_equality_checks
 
 import 'dart:convert';
 import 'dart:io';
+
+import 'package:arborrr_p001/functions/userInfo.dart' as ui;
+import 'package:arborrr_p001/mec.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:arborrr_p001/login.dart';
+
 import 'package:flutter/services.dart';
+
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/dom.dart' as dom;
@@ -43,6 +48,17 @@ class _StoreUserState extends State<StoreUser> {
             data['email'],
             data['pic'],
           ];
+          subList(context, title, pagerout) {
+            return SizedBox(
+                width: MediaQuery.of(context).size.width,
+                child: ListTile(
+                    title: Text(title, style: TextStyle(color: ui.foreground)),
+                    onTap: () async {
+                      await Navigator.push(context,
+                          MaterialPageRoute(builder: ((context) => pagerout)));
+                      setState(() {});
+                    }));
+          }
 
           return Scaffold(
             body: ListView(children: [
@@ -50,9 +66,9 @@ class _StoreUserState extends State<StoreUser> {
               Stack(children: [
                 Container(
                   margin: const EdgeInsets.only(top: 150),
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
+                  decoration: BoxDecoration(
+                    color: ui.Themecolor,
+                    borderRadius: const BorderRadius.only(
                         topRight: Radius.circular(20.0),
                         topLeft: Radius.circular(20.0)),
                   ),
@@ -71,13 +87,16 @@ class _StoreUserState extends State<StoreUser> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Text('${value[0]} ${value[1]}',
-                                      style: const TextStyle(fontSize: 32)),
+                                      style: TextStyle(
+                                          fontSize: 32, color: ui.foreground)),
                                   Text('Phone ${value[2]}',
-                                      style: const TextStyle(
-                                          fontSize: 14, color: Colors.black38)),
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          color: ui.foregroundHead)),
                                   Text('UID : ${user.uid}',
-                                      style: const TextStyle(
-                                          fontSize: 12, color: Colors.black38)),
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          color: ui.foregroundHead)),
                                   SizedBox(
                                       width: 135,
                                       child: ElevatedButton(
@@ -91,12 +110,24 @@ class _StoreUserState extends State<StoreUser> {
                                               .copyWith(
                                                   elevation: ButtonStyleButton
                                                       .allOrNull(0.0)),
-                                          onPressed: () {},
+                                          onPressed: () async {
+                                            await Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const EditInfo(),
+                                                ));
+                                            setState(() {});
+                                          },
                                           child: Row(children: const [
                                             Text('แก้ไขโปรไฟล์',
-                                                style: TextStyle(fontSize: 16)),
-                                            Icon(Icons
-                                                .keyboard_arrow_right_rounded)
+                                                style: TextStyle(
+                                                    fontSize: 16,
+                                                    color: Colors.white)),
+                                            Icon(
+                                                Icons
+                                                    .keyboard_arrow_right_rounded,
+                                                color: Colors.white)
                                           ]))),
                                 ]),
                           )
@@ -109,10 +140,10 @@ class _StoreUserState extends State<StoreUser> {
                             Container(
                               width: 150,
                               padding: const EdgeInsets.all(5),
-                              child: Row(children: const [
-                                Icon(Icons.support, color: Colors.black38),
+                              child: Row(children: [
+                                Icon(Icons.support, color: ui.foregroundHead),
                                 Text(' Help & Feedback ',
-                                    style: TextStyle(color: Colors.black38)),
+                                    style: TextStyle(color: ui.foregroundHead)),
                               ]),
                             ),
 
@@ -150,14 +181,15 @@ class _StoreUserState extends State<StoreUser> {
                             Container(
                               width: 100,
                               padding: const EdgeInsets.all(5),
-                              child: Row(children: const [
-                                Icon(Icons.settings, color: Colors.black38),
+                              child: Row(children: [
+                                Icon(Icons.settings, color: ui.foregroundHead),
                                 Text(' General ',
-                                    style: TextStyle(color: Colors.black38)),
+                                    style: TextStyle(color: ui.foregroundHead)),
                               ]),
                             ),
-                            subList(context, 'การแจ้งเตือน', null),
-                            subList(context, 'ธีมรูปลักษณ์', null),
+                            subList(context, 'การแจ้งเตือน', const NoticeSet()),
+                            subList(
+                                context, 'ธีมรูปลักษณ์', const ThemeDefault()),
                           ],
                         ),
 
@@ -242,13 +274,168 @@ class _WebManuState extends State<WebManu> {
       ));
 }
 
-subList(context, title, pagerout) {
-  return SizedBox(
-      width: MediaQuery.of(context).size.width,
-      child: ListTile(
-          title: Text(title),
-          onTap: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: ((context) => pagerout)));
-          }));
+//notification page
+class NoticeSet extends StatefulWidget {
+  const NoticeSet({Key? key}) : super(key: key);
+
+  @override
+  State<NoticeSet> createState() => _NoticeSetState();
+}
+
+class _NoticeSetState extends State<NoticeSet> {
+  bool openNotice = true;
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: ui.Themecolor,
+        appBar: AppBar(
+            title: const Text('การแจ้งเตือน'), backgroundColor: Colors.black),
+        body: SwitchListTile(
+          title: Text("เปิดการแจ้งเตือนเสมอ",
+              style: TextStyle(color: ui.foreground)),
+          value: openNotice,
+          onChanged: (bool value) {
+            setState(() {
+              openNotice = value;
+            });
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class ThemeDefault extends StatefulWidget {
+  const ThemeDefault({Key? key}) : super(key: key);
+
+  @override
+  State<ThemeDefault> createState() => _ThemeDefaultState();
+}
+
+class _ThemeDefaultState extends State<ThemeDefault> {
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: ui.Themecolor,
+        appBar: AppBar(
+            leading: InkWell(
+                child: const Icon(Icons.arrow_back_rounded),
+                onTap: () {
+                  Navigator.of(context).pop();
+                }),
+            title: const Text('ธีมรูปลักษณ์'),
+            backgroundColor: Colors.black),
+        body: ListView(children: [
+          RadioListTile(
+            title: Text('Dark Theme', style: TextStyle(color: ui.foreground)),
+            value: ui.Theme.dark,
+            groupValue: ui.selectedTheme,
+            onChanged: (ui.Theme? value) {
+              setState(() {
+                ui.selectedTheme = value;
+                ui.Themecolor = const Color(0xff121212);
+                ui.foreground = const Color(0xfff2f2f2);
+                ui.foregroundHead = const Color(0xff888888);
+              });
+            },
+          ),
+          RadioListTile(
+            title: Text('Light Theme', style: TextStyle(color: ui.foreground)),
+            value: ui.Theme.normal,
+            groupValue: ui.selectedTheme,
+            onChanged: (ui.Theme? value) {
+              setState(() {
+                ui.selectedTheme = value;
+                ui.Themecolor = Colors.white;
+                ui.foreground = Colors.black87;
+                ui.foregroundHead = Colors.black38;
+              });
+            },
+          )
+        ]),
+      ),
+    );
+  }
+}
+
+class EditInfo extends StatefulWidget {
+  const EditInfo({Key? key}) : super(key: key);
+
+  @override
+  State<EditInfo> createState() => _EditInfoState();
+}
+
+class _EditInfoState extends State<EditInfo> {
+  TextEditingController name = TextEditingController();
+  TextEditingController lastname = TextEditingController();
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: ui.Themecolor,
+      appBar: AppBar(
+        title: const Text('แก้ไขโปรไฟล์'),
+        centerTitle: true,
+        backgroundColor: Colors.black,
+      ),
+      body: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Wrap(
+            runSpacing: 10,
+            children: [
+              Text('Name', style: TextStyle(color: ui.foreground)),
+              inputField(name),
+              Text('Last name', style: TextStyle(color: ui.foreground)),
+              inputField(lastname),
+            ],
+          )),
+      floatingActionButton: FloatingActionButton(
+          backgroundColor: const Color(0xff4059ad),
+          onPressed: () {
+            UpdateStatus();
+          },
+          child: const Icon(Icons.done_rounded, size: 26)),
+    );
+  }
+
+  // ignore: non_constant_identifier_names
+  UpdateStatus() async {
+    if (lastname.text == '') {
+      log('Error 1');
+      return;
+    }
+    if (name.text == '') {
+      log('Error 2');
+      return;
+    }
+    log('Update Completed : ${name.text}');
+    await db.collection('users').doc(user.uid).update({
+      "first": name.text,
+      "last": lastname.text,
+    });
+    Navigator.pop(context);
+  }
+
+  Widget inputField(_controller) {
+    return TextField(
+      controller: _controller,
+      cursorColor: ui.foreground,
+      style: TextStyle(
+        color: ui.foreground,
+        fontSize: 16.0,
+      ),
+      decoration: InputDecoration(
+        isDense: true, // Added this
+        contentPadding: const EdgeInsets.all(8),
+        filled: true,
+        fillColor: const Color.fromARGB(255, 46, 45, 45),
+        focusedBorder: const OutlineInputBorder(
+            borderSide: BorderSide(color: Color(0xff4059ad))),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: ui.foregroundHead),
+        ),
+      ),
+    );
+  }
 }

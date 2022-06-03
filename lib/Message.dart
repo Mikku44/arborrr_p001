@@ -2,6 +2,7 @@
 
 import 'package:flutter/Material.dart';
 import 'package:flutter/material.dart';
+import 'package:arborrr_p001/functions/userInfo.dart' as ui;
 
 const primaryColor = Color(0xFF4059AD);
 // import 'package:shared_preferences/shared_preferences.dart';
@@ -31,41 +32,37 @@ class _MessageState extends State<Message> {
             child: Container(
                 padding: const EdgeInsets.only(top: 10, left: 20),
                 color: const Color(0xff4059ad),
-                child: const Text('HALEY\nQuenn',
-                    style: TextStyle(fontSize: 32, color: Colors.white))),
+                child: Text('HALEY\nQuenn',
+                    style: TextStyle(fontSize: 32, color: ui.foreground))),
           ),
           Expanded(
             flex: 3,
             child: Container(
               padding: const EdgeInsets.all(25),
-              child: ListView(children: const [
-                Text('Start'),
-                Text('hello world'),
-                Text('hello world'),
-                Text('hello world'),
-                Text('hello world'),
-                Text('hello world'),
-                Text('hello world'),
-                Text('hello world'),
-                Text('hello world'),
-                Text('hello world'),
-                Text('hello world'),
-                Text('hello world'),
-                Text('hello world'),
-                Text('hello world'),
-                Text('hello world'),
-                Text('END')
+              child: ListView(children: [
+                Text('Start', style: TextStyle(color: ui.foreground)),
+                Text('Start', style: TextStyle(color: ui.foreground)),
+                Text('Start', style: TextStyle(color: ui.foreground)),
+                Text('Start', style: TextStyle(color: ui.foreground)),
+                Text('Start', style: TextStyle(color: ui.foreground)),
+                Text('Start', style: TextStyle(color: ui.foreground)),
+                Text('Start', style: TextStyle(color: ui.foreground)),
+                Text('Start', style: TextStyle(color: ui.foreground)),
+                Text('Start', style: TextStyle(color: ui.foreground)),
+                Text('Start', style: TextStyle(color: ui.foreground)),
+                Text('Start', style: TextStyle(color: ui.foreground)),
+                Text('Start', style: TextStyle(color: ui.foreground)),
               ]),
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
+              decoration: BoxDecoration(
+                color: ui.Themecolor,
+                borderRadius: const BorderRadius.only(
                     topRight: Radius.circular(20.0),
                     topLeft: Radius.circular(20.0)),
               ),
             ),
           ),
           Container(
-            color: Colors.white,
+            color: ui.Themecolor,
             child: Container(
               width: MediaQuery.of(context).size.width - 30,
               margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
