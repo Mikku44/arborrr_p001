@@ -5,8 +5,9 @@ import "package:flutter/material.dart";
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-// import 'dart:developer';
 
+// import 'dart:developer';
+String ready = 'ยังไม่พร้อมให้บริการ';
 Theme? selectedTheme = Theme.normal;
 var Themecolor = Colors.white;
 var onPrimary = const Color.fromARGB(255, 255, 255, 255);

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'firebase_options.dart';
-import 'package:arborrr_p001/profile.dart';
+import 'package:arborrr_p001/remakemec.dart';
 import 'package:arborrr_p001/Message.dart';
 import 'package:arborrr_p001/login.dart';
 import 'package:arborrr_p001/functions/getUser.dart';
@@ -89,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Mec(),
     Message(),
     ViewBox(),
-    Profile(),
+    IndexPage(),
     StoreUser(),
   ];
   void _onItemTapped(int index) {
@@ -134,7 +134,7 @@ class _MyHomePageState extends State<MyHomePage> {
               BottomNavigationBarItem(
                   icon: Icon(IconData(0xe50d, fontFamily: 'MaterialIcons'),
                       size: 28),
-                  label: "Payment"),
+                  label: "Notification"),
               BottomNavigationBarItem(
                   icon: Icon(IconData(0xf4fb, fontFamily: 'awesomefont'),
                       size: 28),
