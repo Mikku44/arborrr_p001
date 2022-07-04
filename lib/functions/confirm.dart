@@ -441,16 +441,11 @@ class _TowerState extends State<Tower> {
           if (snapshot.hasError) return Text('Error = ${snapshot.error}');
           if (snapshot.hasData) {
             var data = snapshot.data!.data();
-            final time =
-                (Timestamp.now().seconds - data?['timeStamp'].seconds) /
-                    60; // calculate time seconds to minutes
-            if (time > 14400) {
-              db.collection("requestments").doc(ui.userID).delete();
-            } // if requestments more than 10 day -> delete infomation
-            if (data?['Process'] == 'success') {
-              collected = false;
-            } else {
+            log("$data");
+            if (data?['Process'] == 'waiting') {
               collected = true;
+            } else {
+              collected = false;
             } // if process is success back to simple menu
           }
           return Scaffold(
@@ -534,10 +529,6 @@ class _TowerState extends State<Tower> {
 }
 
 collectRequest(cost, _character) async {
-  if (ui.ready == 'ยังไม่พร้อมให้บริการ') {
-    log('error no service');
-    return;
-  }
   if (_character == Oil.Not) {
     log('Please select oil type');
     error = "โปรดเลือกประเภทน้ำมันอย่างใด อย่างหนึ่ง";
@@ -567,10 +558,6 @@ collectRequest(cost, _character) async {
 }
 
 collectRequestOther() async {
-  if (ui.ready == 'ยังไม่พร้อมให้บริการ') {
-    log('error no service');
-    return;
-  }
   if (modelCar.text == '') {
     log('Error');
     return;
@@ -586,17 +573,13 @@ collectRequestOther() async {
     "cost": 'cost',
     "Problem": problem.text,
     "Payment": 'Not pay yet',
-    "MecID": 'MecID',
+    "FixID": 'FixID',
     "Process": 'waiting',
     "timeStamp": Timestamp.now(),
   });
 }
 
 towerRequest() async {
-  if (ui.ready == 'ยังไม่พร้อมให้บริการ') {
-    log('error no service');
-    return;
-  }
   collected = true;
   var currentUser = await ui.getCurrentUser();
 
@@ -606,7 +589,7 @@ towerRequest() async {
     "address": currentUser,
     "cost": 'cost',
     "Payment": 'Not pay yet',
-    "MecID": 'MecID',
+    "FixID": 'FixID',
     "Process": 'waiting',
     "timeStamp": Timestamp.now(),
   });

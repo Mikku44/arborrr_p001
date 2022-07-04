@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:arborrr_p001/functions/userInfo.dart' as ui;
-import 'package:arborrr_p001/mec.dart';
+import 'package:arborrr_p001/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -337,12 +337,8 @@ class _ThemeDefaultState extends State<ThemeDefault> {
           groupValue: ui.selectedTheme,
           onChanged: (ui.Theme? value) {
             setState(() {
-              ui.selectedTheme = value;
-              ui.Themecolor = const Color(0xff121212);
-              ui.foreground = const Color(0xfff2f2f2);
-              ui.foregroundHead = const Color(0xff888888);
-              ui.primaryTheme = const Color(0xff243362);
-              ui.onPrimary = const Color(0xff323232);
+              ui.storeKeyValue(true);
+              ui.readKeyValue();
             });
           },
         ),
@@ -352,12 +348,8 @@ class _ThemeDefaultState extends State<ThemeDefault> {
           groupValue: ui.selectedTheme,
           onChanged: (ui.Theme? value) {
             setState(() {
-              ui.selectedTheme = value;
-              ui.Themecolor = Colors.white;
-              ui.foreground = Colors.black87;
-              ui.foregroundHead = Colors.black38;
-              ui.primaryTheme = const Color(0xff4059ad);
-              ui.onPrimary = const Color.fromARGB(255, 255, 254, 254);
+              ui.storeKeyValue(false);
+              ui.readKeyValue();
             });
           },
         )

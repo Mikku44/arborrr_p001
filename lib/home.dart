@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:arborrr_p001/functions/confirm.dart';
-import 'package:arborrr_p001/functions/userInfo.dart' as ui;
 
 const primaryColor = Color(0xFF4059AD);
 
@@ -26,37 +25,38 @@ class _MecState extends State<Mec> {
         child: ListView(
           children: [
             Image.asset('assets/images/image.png'),
+            // Padding(
+            //   padding: const EdgeInsets.only(
+            //       bottom: 20, top: 20, right: 210, left: 20),
+            //   child: InkWell(
+            //       onTap: () {
+            //         showDialog(
+            //             context: context,
+            //             builder: (context) => const AlertDialog(
+            //                   content: Text(
+            //                       'หากยังไม่ได้ยืนยันตำแหน่งให้ไปที่หน้า Explore แล้วกดปุ่ม "ยืนยันตำแหน่ง"'),
+            //                   title: Text('แถบสถานะการให้บริการ'),
+            //                 ));
+            //       },
+            //       child: Container(
+            //         height: 25,
+            //         decoration: BoxDecoration(
+            //           color: Colors.black38,
+            //           borderRadius: BorderRadius.circular(5),
+            //         ),
+            //         child: Row(
+            //             mainAxisAlignment: MainAxisAlignment.center,
+            //             children: [
+            //               Icon(Icons.fiber_manual_record, color: color),
+            //               Text(ui.ready,
+            //                   style: const TextStyle(
+            //                       color: Colors.white, fontSize: 12))
+            //             ]),
+            //       )),
+            // ),
             Padding(
-              padding: const EdgeInsets.only(
-                  bottom: 20, top: 20, right: 210, left: 20),
-              child: InkWell(
-                  onTap: () {
-                    showDialog(
-                        context: context,
-                        builder: (context) => const AlertDialog(
-                              content: Text(
-                                  'หากยังไม่ได้ยืนยันตำแหน่งให้ไปที่หน้า Explore แล้วกดปุ่ม "ยืนยันตำแหน่ง"'),
-                              title: Text('แถบสถานะการให้บริการ'),
-                            ));
-                  },
-                  child: Container(
-                    height: 25,
-                    decoration: BoxDecoration(
-                      color: Colors.black38,
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.fiber_manual_record, color: color),
-                          Text(ui.ready,
-                              style: const TextStyle(
-                                  color: Colors.white, fontSize: 12))
-                        ]),
-                  )),
-            ),
-            Padding(
-                padding: const EdgeInsets.only(bottom: 50, right: 20, left: 20),
+                padding: const EdgeInsets.only(
+                    bottom: 50, right: 20, left: 20, top: 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: const [
@@ -97,13 +97,13 @@ serviceCheck() async {
   final prefs = await SharedPreferences.getInstance();
   final double? Km = prefs.getDouble('ClientStay');
 
-  if (Km! <= 15) {
-    ui.ready = 'พื้นที่พร้อมให้บริการ';
-    color = const Color(0xff97D8C4);
-  } else {
-    color = const Color(0xffdc143c);
-    ui.ready = 'พื้นที่ยังไม่พร้อมให้บริการ';
-  }
+  // if (Km! <= 15) {
+  //   ui.ready = 'พื้นที่พร้อมให้บริการ';
+  //   color = const Color(0xff97D8C4);
+  // } else {
+  //   color = const Color(0xffdc143c);
+  //   ui.ready = 'พื้นที่ยังไม่พร้อมให้บริการ';
+  // }
 }
 
 //UI Part
