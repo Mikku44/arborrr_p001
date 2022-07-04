@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:arborrr_p001/functions/confirm.dart';
 
 const primaryColor = Color(0xFF4059AD);
-String ready = 'ยังไม่พร้อมให้บริการ';
+
 var color = const Color(0xffdc143c);
 
 class Mec extends StatefulWidget {
@@ -25,37 +25,38 @@ class _MecState extends State<Mec> {
         child: ListView(
           children: [
             Image.asset('assets/images/image.png'),
+            // Padding(
+            //   padding: const EdgeInsets.only(
+            //       bottom: 20, top: 20, right: 210, left: 20),
+            //   child: InkWell(
+            //       onTap: () {
+            //         showDialog(
+            //             context: context,
+            //             builder: (context) => const AlertDialog(
+            //                   content: Text(
+            //                       'หากยังไม่ได้ยืนยันตำแหน่งให้ไปที่หน้า Explore แล้วกดปุ่ม "ยืนยันตำแหน่ง"'),
+            //                   title: Text('แถบสถานะการให้บริการ'),
+            //                 ));
+            //       },
+            //       child: Container(
+            //         height: 25,
+            //         decoration: BoxDecoration(
+            //           color: Colors.black38,
+            //           borderRadius: BorderRadius.circular(5),
+            //         ),
+            //         child: Row(
+            //             mainAxisAlignment: MainAxisAlignment.center,
+            //             children: [
+            //               Icon(Icons.fiber_manual_record, color: color),
+            //               Text(ui.ready,
+            //                   style: const TextStyle(
+            //                       color: Colors.white, fontSize: 12))
+            //             ]),
+            //       )),
+            // ),
             Padding(
-              padding: const EdgeInsets.only(
-                  bottom: 20, top: 20, right: 210, left: 20),
-              child: InkWell(
-                  onTap: () {
-                    showDialog(
-                        context: context,
-                        builder: (context) => const AlertDialog(
-                              content: Text(
-                                  'หากยังไม่ได้ยืนยันตำแหน่งให้ไปที่หน้า Explore แล้วกดปุ่ม "ยืนยันต่ำแหน่ง"'),
-                              title: Text('แถบสถานะการให้บริการ'),
-                            ));
-                  },
-                  child: Container(
-                    height: 25,
-                    decoration: BoxDecoration(
-                      color: Colors.black38,
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.fiber_manual_record, color: color),
-                          Text(ready,
-                              style: const TextStyle(
-                                  color: Colors.white, fontSize: 12))
-                        ]),
-                  )),
-            ),
-            Padding(
-                padding: const EdgeInsets.only(bottom: 50, right: 20, left: 20),
+                padding: const EdgeInsets.only(
+                    bottom: 50, right: 20, left: 20, top: 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: const [
@@ -73,41 +74,17 @@ class _MecState extends State<Mec> {
                 context,
                 1),
             cardBox(
-                'ยางแตก',
+                'รถเสีย',
                 '02',
-                'https://images.unsplash.com/photo-1623706897185-32d543db92cf?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1167&q=80',
+                'https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80',
                 context,
                 2),
             cardBox(
-                'หม้อน้ำแห้ง',
-                '03',
-                'https://images.unsplash.com/photo-1544692414-636611c6ae73?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-                context,
-                3),
-            cardBox(
-                'สตาร์ทไม่ติด',
-                '04',
-                'https://images.unsplash.com/photo-1535190458486-5fc153d35688?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80',
-                context,
-                4),
-            cardBox(
-                'โซ่ขาด',
-                '05',
-                'https://images.unsplash.com/photo-1525207106105-b340f7384b30?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80',
-                context,
-                5),
-            cardBox(
-                'ยางแบน',
-                '06',
-                'https://images.unsplash.com/photo-1619255238968-d336a42fc40d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1331&q=80',
-                context,
-                6),
-            cardBox(
                 'บริการยกรถ',
-                '07',
+                '03',
                 'https://images.unsplash.com/photo-1628081182521-d6c4e374357f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80',
                 context,
-                7),
+                3),
           ],
         ),
       ),
@@ -120,13 +97,13 @@ serviceCheck() async {
   final prefs = await SharedPreferences.getInstance();
   final double? Km = prefs.getDouble('ClientStay');
 
-  if (Km! <= 15) {
-    ready = 'พื้นที่พร้อมให้บริการ';
-    color = const Color(0xff97D8C4);
-  } else {
-    color = const Color(0xffdc143c);
-    ready = 'พื้นที่ยังไม่พร้อมให้บริการ';
-  }
+  // if (Km! <= 15) {
+  //   ui.ready = 'พื้นที่พร้อมให้บริการ';
+  //   color = const Color(0xff97D8C4);
+  // } else {
+  //   color = const Color(0xffdc143c);
+  //   ui.ready = 'พื้นที่ยังไม่พร้อมให้บริการ';
+  // }
 }
 
 //UI Part

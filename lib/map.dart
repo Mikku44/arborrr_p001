@@ -1,4 +1,3 @@
-import 'package:arborrr_p001/main.dart';
 import "package:flutter/material.dart";
 import "package:flutter_map/flutter_map.dart";
 import "package:latlong2/latlong.dart";
@@ -55,7 +54,8 @@ class _MapPageState extends State<MapPage> {
               ],
             ),
             Container(
-              padding: const EdgeInsets.all(20),
+              margin: const EdgeInsets.only(bottom: 55),
+              padding: const EdgeInsets.all(30),
               alignment: Alignment.bottomLeft,
               width: 150,
               child: Image.asset("assets/images/Mapbox_logo.png"),
@@ -63,21 +63,19 @@ class _MapPageState extends State<MapPage> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-          backgroundColor: const Color(0xff091122),
-          elevation: 2,
-          child: icon,
-          onPressed: () async {
-            Position position = await _determinePosition();
-            latLngValue = LatLng(position.latitude, position.longitude);
-            icon = const Icon(Icons.my_location);
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => const MyHomePage()),
-              (Route<dynamic> route) => false,
-            );
-            setState(() {});
-          }),
+      floatingActionButton: Padding(
+          padding: const EdgeInsets.only(bottom: 60),
+          child: FloatingActionButton(
+              backgroundColor: const Color(0xff091122),
+              elevation: 2,
+              child: icon,
+              onPressed: () async {
+                Position position = await _determinePosition();
+                latLngValue = LatLng(position.latitude, position.longitude);
+                icon = const Icon(Icons.my_location);
+
+                setState(() {});
+              })),
     );
   }
 }

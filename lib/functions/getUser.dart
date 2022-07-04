@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:arborrr_p001/functions/userInfo.dart' as ui;
-import 'package:arborrr_p001/mec.dart';
+import 'package:arborrr_p001/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -205,6 +205,9 @@ class _StoreUserState extends State<StoreUser> {
                               ),
                               onPressed: () async {
                                 await auth.signOut();
+                                Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                        builder: (context) => const Login()));
                               },
                               style: ElevatedButton.styleFrom(
                                   elevation: 0,
@@ -317,46 +320,41 @@ class _ThemeDefaultState extends State<ThemeDefault> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        backgroundColor: ui.Themecolor,
-        appBar: AppBar(
-            leading: InkWell(
-                child: const Icon(Icons.arrow_back_rounded),
-                onTap: () {
-                  Navigator.of(context).pop();
-                }),
-            title: const Text('ธีมรูปลักษณ์'),
-            backgroundColor: Colors.black),
-        body: ListView(children: [
-          RadioListTile(
-            title: Text('Dark Theme', style: TextStyle(color: ui.foreground)),
-            value: ui.Theme.dark,
-            groupValue: ui.selectedTheme,
-            onChanged: (ui.Theme? value) {
-              setState(() {
-                ui.selectedTheme = value;
-                ui.Themecolor = const Color(0xff121212);
-                ui.foreground = const Color(0xfff2f2f2);
-                ui.foregroundHead = const Color(0xff888888);
-              });
-            },
-          ),
-          RadioListTile(
-            title: Text('Light Theme', style: TextStyle(color: ui.foreground)),
-            value: ui.Theme.normal,
-            groupValue: ui.selectedTheme,
-            onChanged: (ui.Theme? value) {
-              setState(() {
-                ui.selectedTheme = value;
-                ui.Themecolor = Colors.white;
-                ui.foreground = Colors.black87;
-                ui.foregroundHead = Colors.black38;
-              });
-            },
-          )
-        ]),
-      ),
-    );
+        child: Scaffold(
+      backgroundColor: ui.Themecolor,
+      appBar: AppBar(
+          leading: InkWell(
+              child: const Icon(Icons.arrow_back_rounded),
+              onTap: () {
+                Navigator.of(context).pop();
+              }),
+          title: const Text('ธีมรูปลักษณ์'),
+          backgroundColor: Colors.black),
+      body: ListView(children: [
+        RadioListTile(
+          title: Text('Dark Theme', style: TextStyle(color: ui.foreground)),
+          value: ui.Theme.dark,
+          groupValue: ui.selectedTheme,
+          onChanged: (ui.Theme? value) {
+            setState(() {
+              ui.storeKeyValue(true);
+              ui.readKeyValue();
+            });
+          },
+        ),
+        RadioListTile(
+          title: Text('Light Theme', style: TextStyle(color: ui.foreground)),
+          value: ui.Theme.normal,
+          groupValue: ui.selectedTheme,
+          onChanged: (ui.Theme? value) {
+            setState(() {
+              ui.storeKeyValue(false);
+              ui.readKeyValue();
+            });
+          },
+        )
+      ]),
+    ));
   }
 }
 
@@ -429,7 +427,7 @@ class _EditInfoState extends State<EditInfo> {
         isDense: true, // Added this
         contentPadding: const EdgeInsets.all(8),
         filled: true,
-        fillColor: const Color.fromARGB(255, 46, 45, 45),
+        fillColor: ui.onPrimary,
         focusedBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: Color(0xff4059ad))),
         enabledBorder: OutlineInputBorder(
