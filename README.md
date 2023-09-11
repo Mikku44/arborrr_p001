@@ -1,6 +1,13 @@
 # arborrr_p001
 
-A new Flutter project.
+## Description
+This is my first flutter application about calling car fixer.
+
+## Programing language & Framework
+* Flutter (Dart)
+* Firebase
+* mapbox API
+* Oil price API (bangchak)
 
 ## Getting Started
 
