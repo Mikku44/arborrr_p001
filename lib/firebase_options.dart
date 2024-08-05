@@ -37,8 +37,8 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCZbif047R2r5dVtGgKCAfreF39fCadiB0',
-    appId: '1:934169145013:web:ae2f0f0f02e048ee0b98fc',
+    apiKey: 'apikey',
+    appId: 'appID',
     messagingSenderId: '934169145013',
     projectId: 'arborrr-p001a',
     authDomain: 'arborrr-p001a.firebaseapp.com',
@@ -47,16 +47,16 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBWcpANJOzjCM9PVnsoPFD-gBrYk7-H3o8',
-    appId: '1:934169145013:android:b5652cd112354ecc0b98fc',
+    apiKey: 'apikey',
+    appId: 'appID',
     messagingSenderId: '934169145013',
     projectId: 'arborrr-p001a',
     storageBucket: 'arborrr-p001a.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAb3dtfdNjpOgqe09E4I4AyovbSx1WY5yI',
-    appId: '1:934169145013:ios:96aa4054be123ed30b98fc',
+    apiKey: 'apikey',
+    appId: 'appID',
     messagingSenderId: '934169145013',
     projectId: 'arborrr-p001a',
     storageBucket: 'arborrr-p001a.appspot.com',
